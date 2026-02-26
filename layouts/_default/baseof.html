@@ -6,32 +6,32 @@
 <body class="line-numbers">
 
     {{- /* Load JS files individually with defer for better performance */}}
-    {{- $init := resources.Get "js/initColors.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $init.RelPermalink }}" integrity="{{ $init.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    {{- $init := resources.Get "js/initColors.js" }}
+    <script src="{{ $init.RelPermalink }}" defer></script>
     
-    {{- $prism := resources.Get "js/prism.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $prism.RelPermalink }}" integrity="{{ $prism.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    {{- $prism := resources.Get "js/prism.js" }}
+    <script src="{{ $prism.RelPermalink }}" defer></script>
     
-    {{- $toggleLogos := resources.Get "js/toggleLogos.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $toggleLogos.RelPermalink }}" integrity="{{ $toggleLogos.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    {{- $toggleLogos := resources.Get "js/toggleLogos.js" }}
+    <script src="{{ $toggleLogos.RelPermalink }}" defer></script>
     
-    {{- $toggleColors := resources.Get "js/toggleColors.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $toggleColors.RelPermalink }}" integrity="{{ $toggleColors.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    {{- $toggleColors := resources.Get "js/toggleColors.js" }}
+    <script src="{{ $toggleColors.RelPermalink }}" defer></script>
     
-    {{- $copyUrl := resources.Get "js/copyUrl.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $copyUrl.RelPermalink }}" integrity="{{ $copyUrl.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    {{- $copyUrl := resources.Get "js/copyUrl.js" }}
+    <script src="{{ $copyUrl.RelPermalink }}" defer></script>
     
-    {{- $toggleLayout := resources.Get "js/toggleLayout.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $toggleLayout.RelPermalink }}" integrity="{{ $toggleLayout.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    {{- $toggleLayout := resources.Get "js/toggleLayout.js" }}
+    <script src="{{ $toggleLayout.RelPermalink }}" defer></script>
     
-    {{- $toggleBorder := resources.Get "js/toggleBorder.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $toggleBorder.RelPermalink }}" integrity="{{ $toggleBorder.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    {{- $toggleBorder := resources.Get "js/toggleBorder.js" }}
+    <script src="{{ $toggleBorder.RelPermalink }}" defer></script>
     
-    {{- $collapseAuthors := resources.Get "js/collapseAuthors.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $collapseAuthors.RelPermalink }}" integrity="{{ $collapseAuthors.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    {{- $collapseAuthors := resources.Get "js/collapseAuthors.js" }}
+    <script src="{{ $collapseAuthors.RelPermalink }}" defer></script>
     
-    {{- $addFormStyles := resources.Get "js/addFormStyles.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $addFormStyles.RelPermalink }}" integrity="{{ $addFormStyles.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    {{- $addFormStyles := resources.Get "js/addFormStyles.js" }}
+    <script src="{{ $addFormStyles.RelPermalink }}" defer></script>
 
     <div class="layout-styled">
 
@@ -45,8 +45,8 @@
 
     {{- /* Progress bar script - loaded only on post pages */}}
     {{- if eq .Section "post" }}
-        {{- $progress := resources.Get "js/progressBar.js" | resources.Minify | resources.Fingerprint }}
-        <script src="{{ $progress.RelPermalink }}" integrity="{{ $progress.Data.Integrity }}" crossorigin="anonymous" defer></script>
+        {{- $progress := resources.Get "js/progressBar.js" }}
+        <script src="{{ $progress.RelPermalink }}" defer></script>
     {{- end }}
 </body>
 
