@@ -1,0 +1,34 @@
+{{- /*
+    Figure Shortcode with Modern Hugo Features
+    Enhanced figure shortcode with lazy loading and WebP support (Hugo v0.120+)
+    
+    Usage: {{< figure src="image.jpg" alt="Description" caption="Caption text" >}}
+*/ -}}
+
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $caption := .Get "caption" | default "" -}}
+{{- $width := .Get "width" | default "" -}}
+{{- $height := .Get "height" | default "" -}}
+{{- $class := .Get "class" | default "" -}}
+{{- $loading := .Get "loading" | default "lazy" -}}
+
+{{- $figureClass := "figure" -}}
+{{- if $class -}}
+    {{- $figureClass = printf "figure %s" $class -}}
+{{- end -}}
+
+<figure class="{{ $figureClass }}">
+    {{- if $src -}}
+        <img src="{{ $src }}" 
+             alt="{{ $alt }}" 
+             width="{{ $width }}" 
+             height="{{ $height }}"
+             loading="{{ $loading }}"
+             decoding="async">
+    {{- end -}}
+    
+    {{- with $caption -}}
+        <figcaption class="figure-caption">{{ . | markdownify }}</figcaption>
+    {{- end -}}
+</figure>

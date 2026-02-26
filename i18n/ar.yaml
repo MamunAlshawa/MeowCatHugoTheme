@@ -1,0 +1,68 @@
+- id: translations
+  translation: الترجمات
+
+- id: read_more
+  translation: اقرأ المزيد
+
+- id: by
+  translation: بواسطة
+
+- id: posted
+  translation: نشر في
+
+- id: updated
+  translation: تم التحديث
+
+- id: min_read
+  translation: دقيقة للقراءة
+
+- id: share
+  translation: مشاركة
+
+- id: copy_link
+  translation: نسخ الرابط
+
+- id: copied
+  translation: تم النسخ!
+
+- id: subscribe
+  translation: اشتراك
+
+- id: subscribe_heading
+  translation: انضم إلى قائمتنا البريدية
+
+- id: subscribe_text
+  translation: كن أول من يتلقى أحدث محتوى لدينا مع القدرة على إلغاء الاشتراك في أي وقت.
+
+- id: email_placeholder
+  translation: بريدك@الإلكتروني.com
+
+- id: home
+  translation: الرئيسية
+
+- id: authors
+  translation: المؤلفون
+
+- id: posts
+  translation: المقالات
+
+- id: next_article
+  translation: المقال التالي
+
+- id: prev_article
+  translation: المقال السابق
+
+- id: dark_mode
+  translation: الوضع الداكن
+
+- id: light_mode
+  translation: الوضع الفاتح
+
+- id: grid_view
+  translation: عرض الشبكة
+
+- id: list_view
+  translation: عرض القائمة
+
+- id: more_articles
+  translation: المزيد من المقالات من

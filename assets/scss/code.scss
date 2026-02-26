@@ -1,0 +1,64 @@
+.code-toolbar{
+    max-width: 750px;
+    margin: 0 auto 35px;
+    overflow: auto;
+    font-size: 12px;
+    position: relative;
+
+    pre{
+      padding: 1em;
+      border-radius: 5px !important;
+      background-color: #292c34 !important;
+
+      code{
+        color: white;
+      }
+    }
+
+    .toolbar-item{
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+    }
+}
+
+/* Fix for Hugo highlight spans causing alignment issues */
+.highlight pre,
+.highlight pre code,
+.highlight pre code span,
+pre code span,
+code span,
+span[style*="display:flex"] {
+    display: inline !important;
+}
+
+.highlight pre {
+    display: block !important;
+}
+
+/* Fix all code block line issues */
+pre[class*="language-"],
+pre,
+.highlight > pre {
+    display: block !important;
+}
+
+pre code,
+.highlight code {
+    white-space: pre !important;
+}
+
+/********************** RTL Support **********************/
+
+[dir="rtl"] {
+    .code-toolbar {
+        pre {
+            padding: 1em;
+        }
+        
+        .toolbar-item {
+            right: auto;
+            left: 0.5em;
+        }
+    }
+}

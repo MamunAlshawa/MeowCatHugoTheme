@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="{{ with site.Language.LanguageCode }}{{ . }}{{ else }}en{{ end }}" dir="{{ if eq site.Language.Lang "ar" }}rtl{{ else }}ltr{{ end }}">
+
+{{- partial "head/head.html" . }}
+
+<body class="line-numbers">
+
+    {{- /* Load JS files individually with defer for better performance */}}
+    {{- $init := resources.Get "js/initColors.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $init.RelPermalink }}" integrity="{{ $init.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    
+    {{- $prism := resources.Get "js/prism.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $prism.RelPermalink }}" integrity="{{ $prism.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    
+    {{- $toggleLogos := resources.Get "js/toggleLogos.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $toggleLogos.RelPermalink }}" integrity="{{ $toggleLogos.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    
+    {{- $toggleColors := resources.Get "js/toggleColors.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $toggleColors.RelPermalink }}" integrity="{{ $toggleColors.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    
+    {{- $copyUrl := resources.Get "js/copyUrl.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $copyUrl.RelPermalink }}" integrity="{{ $copyUrl.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    
+    {{- $toggleLayout := resources.Get "js/toggleLayout.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $toggleLayout.RelPermalink }}" integrity="{{ $toggleLayout.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    
+    {{- $toggleBorder := resources.Get "js/toggleBorder.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $toggleBorder.RelPermalink }}" integrity="{{ $toggleBorder.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    
+    {{- $collapseAuthors := resources.Get "js/collapseAuthors.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $collapseAuthors.RelPermalink }}" integrity="{{ $collapseAuthors.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    
+    {{- $addFormStyles := resources.Get "js/addFormStyles.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $addFormStyles.RelPermalink }}" integrity="{{ $addFormStyles.Data.Integrity }}" crossorigin="anonymous" defer></script>
+
+    <div class="layout-styled">
+
+        {{- partial "header.html" . }}
+
+        {{- block "main" . }}{{ end }}
+
+        {{- partial "footer.html" . }}
+
+    </div>
+
+    {{- /* Progress bar script - loaded only on post pages */}}
+    {{- if eq .Section "post" }}
+        {{- $progress := resources.Get "js/progressBar.js" | resources.Minify | resources.Fingerprint }}
+        <script src="{{ $progress.RelPermalink }}" integrity="{{ $progress.Data.Integrity }}" crossorigin="anonymous" defer></script>
+    {{- end }}
+</body>
+
+</html>

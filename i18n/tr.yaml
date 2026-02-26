@@ -1,0 +1,68 @@
+- id: translations
+  translation: Çeviriler
+
+- id: read_more
+  translation: Devamını oku
+
+- id: by
+  translation: yazar
+
+- id: posted
+  translation: Yayınlandı
+
+- id: updated
+  translation: Güncellendi
+
+- id: min_read
+  translation: dk okuma
+
+- id: share
+  translation: Paylaş
+
+- id: copy_link
+  translation: Bağlantıyı kopyala
+
+- id: copied
+  translation: Kopyalandı!
+
+- id: subscribe
+  translation: Abone ol
+
+- id: subscribe_heading
+  translation: E-posta listemize katılın
+
+- id: subscribe_text
+  translation: İstediğiniz zaman çıkma abilityimize sahip olarak en son içeriğimizi ilk siz alın.
+
+- id: email_placeholder
+  translation: email@adresiniz.com
+
+- id: home
+  translation: Ana Sayfa
+
+- id: authors
+  translation: Yazarlar
+
+- id: posts
+  translation: Yazılar
+
+- id: next_article
+  translation: Sonraki Yazı
+
+- id: prev_article
+  translation: Önceki Yazı
+
+- id: dark_mode
+  translation: Karanlık mod
+
+- id: light_mode
+  translation: Aydınlık mod
+
+- id: grid_view
+  translation: Izgara görünümü
+
+- id: list_view
+  translation: Liste görünümü
+
+- id: more_articles
+  translation: Daha fazla makale

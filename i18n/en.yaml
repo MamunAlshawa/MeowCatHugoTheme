@@ -1,0 +1,68 @@
+- id: translations
+  translation: Translations
+
+- id: read_more
+  translation: Read more
+
+- id: by
+  translation: by
+
+- id: posted
+  translation: Posted
+
+- id: updated
+  translation: Updated
+
+- id: min_read
+  translation: min read
+
+- id: share
+  translation: Share
+
+- id: copy_link
+  translation: Copy link
+
+- id: copied
+  translation: Copied!
+
+- id: subscribe
+  translation: Subscribe
+
+- id: subscribe_heading
+  translation: Join our email list
+
+- id: subscribe_text
+  translation: Be the first to receive our latest content with the ability to opt-out at anytime.
+
+- id: email_placeholder
+  translation: your@email.com
+
+- id: home
+  translation: Home
+
+- id: authors
+  translation: Authors
+
+- id: posts
+  translation: Posts
+
+- id: next_article
+  translation: Next Article
+
+- id: prev_article
+  translation: Previous Article
+
+- id: dark_mode
+  translation: Toggle dark mode
+
+- id: light_mode
+  translation: Toggle light mode
+
+- id: grid_view
+  translation: Grid view
+
+- id: list_view
+  translation: List view
+
+- id: more_articles
+  translation: More articles from

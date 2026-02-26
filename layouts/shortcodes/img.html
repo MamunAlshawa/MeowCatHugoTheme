@@ -1,0 +1,21 @@
+{{- /*
+    Image Shortcode with Modern Hugo Features
+    Responsive image with lazy loading (Hugo v0.120+)
+    
+    Usage: {{< img src="image.jpg" alt="Description" >}}
+*/ -}}
+
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $class := .Get "class" | default "" -}}
+{{- $loading := .Get "loading" | default "lazy" -}}
+{{- $width := .Get "width" | default "" -}}
+{{- $height := .Get "height" | default "" -}}
+
+<img src="{{ $src }}" 
+     alt="{{ $alt }}" 
+     class="{{ $class }}"
+     loading="{{ $loading }}"
+     decoding="async"
+     width="{{ $width }}"
+     height="{{ $height }}">

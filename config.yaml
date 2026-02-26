@@ -1,0 +1,259 @@
+# MeowCatHugoTheme - Complete Hugo Configuration
+# This file contains ALL Hugo settings as defaults for the theme.
+# Site-specific settings should go in your site's config.yaml.
+
+baseURL: "https://example.com"
+languageCode: "en-us"
+title: "My Blog"
+theme: MeowCatHugoTheme
+
+###############################################################################
+# Languages Configuration
+###############################################################################
+languages:
+  en:
+    languageName: English
+    languageCode: en-us
+    weight: 1
+    title: English
+    params:
+      description: "A Hugo port of the Novela theme by Narative"
+  tr:
+    languageName: Türkçe
+    languageCode: tr-tr
+    weight: 2
+    title: Türkçe
+    params:
+      description: "Narative'nin Novela temasının Hugo portu"
+  ar:
+    languageName: العربية
+    languageCode: ar
+    weight: 3
+    rtl: true
+    title: العربية
+    params:
+      description: "موضوع Novela من Narative لموقع Hugo"
+
+###############################################################################
+# Taxonomies Configuration
+###############################################################################
+taxonomies:
+  author: authors
+  tag: tags
+  category: categories
+  series: series
+
+###############################################################################
+# Permalinks Configuration
+###############################################################################
+permalinks:
+  post: /:year/:month/:slug/
+  page: /:slug/
+  authors: /authors/:slug/
+
+###############################################################################
+# Content Configuration
+###############################################################################
+content:
+  license: ""
+  preserveTaxonomyNames: true
+  pluralizeListTitles: true
+  defaultContentLanguage: en
+  defaultContentLanguageInSubdir: false
+
+###############################################################################
+# Markup Configuration
+###############################################################################
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    duplicateResourceFiles: false
+    extensions:
+      cjk:
+        eastAsianLineBreaks: false
+        eastAsianLineBreaksStyle: simple
+        enable: false
+        escapedSpace: false
+      definitionList: true
+      extras:
+        delete:
+          enable: false
+        insert:
+          enable: false
+        mark:
+          enable: false
+        subscript:
+          enable: false
+        superscript:
+          enable: false
+      footnote:
+        backlinkHTML: "&#8594;"
+        enable: true
+        enableAutoIDPrefix: false
+      linkify: true
+      linkifyProtocol: https
+      passthrough:
+        delimiters:
+          block: []
+          inline: []
+        enable: false
+      strikethrough: true
+      table: true
+      taskList: true
+      typographer:
+        apostrophe: "''"
+        disable: false
+        ellipsis: "..."
+        emDash: "--"
+        enDash: "-"
+        leftAngleQuote: "<<"
+        leftDoubleQuote: "\""
+        leftSingleQuote: "'"
+        rightAngleQuote: ">>"
+        rightDoubleQuote: "\""
+        rightSingleQuote: "'"
+    parser:
+      attribute:
+        block: false
+        title: true
+      autoDefinitionTermID: false
+      autoHeadingID: true
+      autoIDType: github
+      wrapStandAloneImageWithinParagraph: true
+    renderHooks:
+      image:
+        enableDefault: false
+        useEmbedded: auto
+      link:
+        enableDefault: false
+        useEmbedded: auto
+    renderer:
+      hardWraps: false
+      unsafe: true
+      xhtml: false
+  highlight:
+    anchorLineNos: false
+    codeFences: true
+    guessSyntax: false
+    hl_Lines: ""
+    hl_inline: false
+    lineAnchors: ""
+    lineNoStart: 1
+    lineNos: false
+    lineNumbersInTable: true
+    noClasses: false
+    style: monokai
+    tabWidth: 4
+    wrapperClass: highlight
+  tableOfContents:
+    endLevel: 3
+    ordered: false
+    startLevel: 2
+
+###############################################################################
+# Output Configuration
+###############################################################################
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+  page:
+    - HTML
+
+###############################################################################
+# Imaging Configuration
+###############################################################################
+imaging:
+  resampleFilter: Lanczos
+  quality: 75
+  anchor: smart
+
+###############################################################################
+# Social Configuration
+###############################################################################
+social:
+  twitter: ""
+  github: ""
+  instagram: ""
+  linkedin: ""
+  dribbble: ""
+  youtube: ""
+
+###############################################################################
+# Security Configuration
+###############################################################################
+security:
+  exec:
+    allow:
+      - ^dart-sass-embedded$
+      - ^go$
+      - ^npx$
+      - ^postcss$
+      - ^tailwindcss$
+    osEnv:
+      - (?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$
+  funcs:
+    getenv:
+      - ^HUGO_
+      - ^CI$
+  http:
+    methods:
+      - (?i)GET|POST
+    urls:
+      - .*
+
+###############################################################################
+# Advanced Configuration
+###############################################################################
+ignoreFiles: []
+enableEmoji: false
+hasCJKLanguage: false
+enableGitInfo: false
+enableRobotsTXT: true
+enableUTF8: false
+
+###############################################################################
+# Params - Theme-Specific Settings
+###############################################################################
+params:
+  singleAuthor: true
+  singleAuthorName: ""
+  singleAuthorUrl: ""
+  showBio: true
+  showAuthorsPage: true
+
+###############################################################################
+# SEO Settings
+###############################################################################
+seo:
+  default_image: /images/hero-2.jpg
+  jsonld: true
+  debug: false
+
+###############################################################################
+# Theme Features
+###############################################################################
+features:
+  darkMode: true
+  gridLayout: true
+  readingTime: true
+  authorBio: true
+  socialShare: true
+  newsletter: true
+
+###############################################################################
+# Theme Version
+###############################################################################
+version:
+  major: 2
+  minor: 0
+  patch: 0
+
+###############################################################################
+# Theme Credits
+###############################################################################
+credits:
+  author: "The New Dynamic"
+  original: "Narative"
+  license: "MIT"
