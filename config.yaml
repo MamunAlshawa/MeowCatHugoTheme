@@ -122,11 +122,9 @@ markup:
       wrapStandAloneImageWithinParagraph: true
     renderHooks:
       image:
-        enableDefault: false
-        useEmbedded: auto
+        useEmbedded: never
       link:
-        enableDefault: false
-        useEmbedded: auto
+        useEmbedded: never
     renderer:
       hardWraps: false
       unsafe: true
