@@ -11,7 +11,7 @@ table{
     background: var(--card);
     margin: 45px auto 85px;
     width: 100%;
-    max-width: 1004px;
+    max-width: 750px;
     border: 1px solid var(--horizontalRule);
     border-radius: 5px;
     overflow: hidden;
@@ -22,6 +22,7 @@ table{
 @media screen and (max-width: 1070px){
     table{
         margin: 25px auto 65px;
+        max-width: 550px;
     }
 }
 

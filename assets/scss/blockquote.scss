@@ -6,12 +6,14 @@ blockquote{
     color: var(--articleText);
     font-family: var(--serif);
     font-style: italic;
+    width: 100%;
+    max-width: 700px;
 }
 
 blockquote > p {
   font-family: var(--serif);
-  max-width: 880px !important;
-  padding-right: 100px;
+  max-width: 100%;
+  padding-right: 0;
   padding-bottom: 0;
   width: 100%;
   margin: 0 auto;
@@ -20,14 +22,22 @@ blockquote > p {
   font-weight: bold;
 }
 
+/*DESKTOP*/
+@media screen and (max-width: 1070px){
+    blockquote{
+        max-width: 550px;
+    }
+}
+
+/*TABLET*/
 @media screen and (max-width: 735px) {
     blockquote{
         margin: 10px auto 35px;
         font-size: 26px;
-        padding: 0 180px;
     }
 }
 
+/*PHABLET*/
 @media screen and (max-width: 540px) {
     blockquote{
         font-size: 36px;

@@ -107,10 +107,10 @@ markup:
         emDash: "--"
         enDash: "-"
         leftAngleQuote: "<<"
-        leftDoubleQuote: "\""
+        leftDoubleQuote: '"'
         leftSingleQuote: "'"
         rightAngleQuote: ">>"
-        rightDoubleQuote: "\""
+        rightDoubleQuote: '"'
         rightSingleQuote: "'"
     parser:
       attribute:
@@ -171,12 +171,12 @@ imaging:
 # Social Configuration
 ###############################################################################
 social:
-  twitter: ""
-  github: ""
-  instagram: ""
-  linkedin: ""
-  dribbble: ""
-  youtube: ""
+  twitter: "https://x.com/yourhandle"
+  github: "https://github.com/yourhandle"
+  instagram: "https://instagram.com/yourhandle"
+  linkedin: "https://linkedin.com/in/yourhandle"
+  dribbble: "https://dribbble.com/yourhandle"
+  youtube: "https://youtube.com/@yourhandle"
 
 ###############################################################################
 # Security Configuration
@@ -215,11 +215,8 @@ enableUTF8: false
 # Params - Theme-Specific Settings
 ###############################################################################
 params:
-  singleAuthor: true
-  singleAuthorName: ""
   singleAuthorUrl: ""
   showBio: true
-  showAuthorsPage: true
 
 ###############################################################################
 # SEO Settings
@@ -228,30 +225,3 @@ seo:
   default_image: /images/hero-2.jpg
   jsonld: true
   debug: false
-
-###############################################################################
-# Theme Features
-###############################################################################
-features:
-  darkMode: true
-  gridLayout: true
-  readingTime: true
-  authorBio: true
-  socialShare: true
-  newsletter: true
-
-###############################################################################
-# Theme Version
-###############################################################################
-version:
-  major: 2
-  minor: 0
-  patch: 0
-
-###############################################################################
-# Theme Credits
-###############################################################################
-credits:
-  author: "MamunAlshawa"
-  original: "Narative"
-  license: "MIT"

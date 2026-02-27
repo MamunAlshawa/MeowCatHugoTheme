@@ -12,7 +12,7 @@
     /*PHABLET*/
     @media screen and (max-width: 540px){
         max-width: 100%;
-        padding: 2rem;;
+        padding: 2rem;
     }
 
     p{
@@ -27,6 +27,26 @@
 }
 
 .narrow{
+    width: 100%;
+    max-width: 1004px;
+    margin: 0 auto;
+    padding: 0 4rem;
+
+    /*DESKTOP*/
+    @media screen and (max-width: 1070px){
+        max-width: 850px;
+    }
+
+    /*TABLET*/
+    @media screen and (max-width: 735px){
+        padding: 0 2rem;
+    }
+
+    /*PHABLET*/
+    @media screen and (max-width: 540px){
+        padding: 0 1rem;
+    }
+
     p{
         /*TABLET*/
         @media screen and (max-width: 735px){

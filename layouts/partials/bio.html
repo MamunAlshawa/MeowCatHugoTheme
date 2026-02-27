@@ -1,23 +1,20 @@
 {{ $showBio := .Site.Params.showBio | default true }}
 {{ if $showBio }}
     <div class="bio-container">
-        {{ range site.Taxonomies.authors }}
-            {{ with .Page }}
-                {{ if .Params.featured }}
-                    <a href="{{ .RelPermalink }}" class="bio-link">
-                        {{ with .Params.avatar }}
-                            <div class="bio-avatar">
-                                <div class="bio-avatar-inner">
-                                    <img class="author-avatar" src="{{ . }}" />
-                                </div>
-                            </div>
-                        {{ end }}
-                        {{ with .Params.bio }}
-                            <p class="bio-text">{{ . }}</p>
-                        {{ end }}
-                    </a>
+        {{ $authorPage := .Site.GetPage .Site.Params.singleAuthorUrl }}
+        {{ with $authorPage }}
+            <a href="{{ .RelPermalink }}" class="bio-link">
+                {{ with .Params.avatar }}
+                    <div class="bio-avatar">
+                        <div class="bio-avatar-inner">
+                            <img class="author-avatar" src="{{ . }}" />
+                        </div>
+                    </div>
                 {{ end }}
-            {{ end }}
+                {{ with .Params.bio }}
+                    <p class="bio-text">{{ . }}</p>
+                {{ end }}
+            </a>
         {{ end }}
     </div>
 {{ end }}

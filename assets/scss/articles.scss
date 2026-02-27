@@ -425,6 +425,13 @@
     font-size: 16px;
     color: var(--grey);
     opacity: 0.33;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 8px;
   
     /*PHABLET*/
     @media screen and (max-width: $phablet){

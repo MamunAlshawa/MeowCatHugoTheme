@@ -33,6 +33,13 @@
                     {{ $article.Params.excerpt }}
                   </p>
                   <div class="article-metadata">
+                    {{ $authorPage := $.Site.GetPage $.Site.Params.singleAuthorUrl }}
+                    {{ with $authorPage }}
+                      {{ with .Params.avatar }}
+                        <img src="{{ . }}" class="article-list-avatar" />
+                      {{ end }}
+                      <span>{{ .Params.title }}</span>
+                    {{ end }}
                     {{ $article.Date.Format "January 2, 2006" }} • {{ $article.ReadingTime }} {{ i18n "min_read" }}
                   </div>
                 </div>

@@ -9,6 +9,7 @@
     position: -webkit-sticky;
     position: sticky;
     top: 30%;
+    margin-left: -60px;
     -webkit-animation-name: progress-fade-in;
             animation-name: progress-fade-in;
     -webkit-animation-duration: 0.5s;
@@ -108,4 +109,13 @@
     width: 1px;
     background-color: var(--progress);
     left: 0;
+}
+
+/********************** RTL Support **********************/
+
+[dir="rtl"] {
+    .aside-container {
+        margin-left: 0;
+        margin-right: -60px;
+    }
 }

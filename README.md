@@ -1,9 +1,4 @@
 # MeowCatHugoTheme
-## ⚠️ Work in Progress
-
-This Hugo theme is under active development and is not yet production-ready.
-
-Expect frequent updates and potential breaking changes.
 
 A Hugo theme.
 
@@ -45,8 +40,12 @@ theme: MeowCatHugoTheme
 
 # Customize your social links
 social:
-  twitter: "https://twitter.com/yourhandle"
+  twitter: "https://x.com/yourhandle"
   github: "https://github.com/yourhandle"
+  instagram: "https://instagram.com/yourhandle"
+  linkedin: "https://linkedin.com/in/yourhandle"
+  youtube: "https://youtube.com/@yourhandle"
+  dribbble: "https://dribbble.com/yourhandle"
 ```
 
 ### 4. Run the server
