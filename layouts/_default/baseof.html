@@ -4,33 +4,35 @@
 {{- partial "head/head.html" . }}
 
 <body class="line-numbers">
+    {{- /* Skip to content link for accessibility */}}
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     {{- /* Load JS files individually with defer for better performance */}}
     {{- $init := resources.Get "js/initColors.js" }}
     <script src="{{ $init.RelPermalink }}" defer></script>
-    
+
     {{- $prism := resources.Get "js/prism.js" }}
     <script src="{{ $prism.RelPermalink }}" defer></script>
-    
+
     {{- $toggleLogos := resources.Get "js/toggleLogos.js" }}
     <script src="{{ $toggleLogos.RelPermalink }}" defer></script>
-    
+
     {{- $toggleColors := resources.Get "js/toggleColors.js" }}
     <script src="{{ $toggleColors.RelPermalink }}" defer></script>
-    
+
     {{- $copyUrl := resources.Get "js/copyUrl.js" }}
     <script src="{{ $copyUrl.RelPermalink }}" defer></script>
-    
+
     {{- $toggleLayout := resources.Get "js/toggleLayout.js" }}
     <script src="{{ $toggleLayout.RelPermalink }}" defer></script>
-    
+
     {{- $toggleBorder := resources.Get "js/toggleBorder.js" }}
     <script src="{{ $toggleBorder.RelPermalink }}" defer></script>
 
     {{- $addFormStyles := resources.Get "js/addFormStyles.js" }}
     <script src="{{ $addFormStyles.RelPermalink }}" defer></script>
 
-    <div class="layout-styled">
+    <div class="layout-styled" id="main-content">
 
         {{- partial "header.html" . }}
 

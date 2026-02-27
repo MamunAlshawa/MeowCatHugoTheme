@@ -1,6 +1,9 @@
 <header class="header" x-data="searchComponent()">
   <div class="nav-container">
-    <a class="logo-link" href="{{ "/" | relLangURL }}">
+    <a class="logo-link" href="{{ "/" | relLangURL }}" aria-label="{{ .Site.Title }} - Go to homepage">
+      {{- with .Site.Params.logo }}
+        <img src="{{ . | relURL }}" alt="{{ $.Site.Title }} logo" class="site-logo" height="40">
+      {{- end }}
       <span class="site-title">{{ .Site.Title }}</span>
       <span class="header-hidden">Navigate back to the homepage</span>
     </a>
@@ -197,6 +200,11 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
+    }
+    .site-logo {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
     }
     .site-title {
       font-size: 22px;

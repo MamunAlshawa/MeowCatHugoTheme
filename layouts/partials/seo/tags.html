@@ -27,6 +27,17 @@
 {{- with ($seo.image_height) -}}
   <meta property="og:image:height" content="{{ . }}">
 {{- end -}}
+{{- /* Article-specific OpenGraph tags */}}
+{{- if eq $seo.type "article" -}}
+  {{- with .page.Params.author -}}
+    <meta property="article:author" content="{{ . }}">
+  {{- end -}}
+  {{- with .page.Params.tags -}}
+    {{- range . -}}
+      <meta property="article:tag" content="{{ . }}">
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 <meta name="twitter:card" content="{{ $seo.twitter_card }}">
 <meta name="twitter:title" content="{{- $seo.title }}">
 {{ with $seo.canonical }}

@@ -5,6 +5,11 @@
         <div class="footer-text">
           © {{ dateFormat "2006" now }} {{ .Site.Title }}
         </div>
+        <div class="footer-links">
+          <a href="{{ "index.xml" | relLangURL }}" aria-label="RSS Feed" class="rss-link">
+            {{ partial "icons/social/rss.html" . }}
+          </a>
+        </div>
         {{ partial "social-links/social-links.html" . }}
     </div>
 </div>

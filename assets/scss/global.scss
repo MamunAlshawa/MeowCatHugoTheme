@@ -427,9 +427,28 @@ img{
   .table-container {
     direction: ltr;
   }
-  
+
   table {
     direction: ltr;
     text-align: left;
+  }
+}
+
+/****************************SKIP LINK****************************/
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 10000;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 0 0 4px 0;
+  transition: top 0.3s ease;
+
+  &:focus {
+    top: 0;
   }
 }

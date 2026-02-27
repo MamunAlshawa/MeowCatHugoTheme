@@ -3,8 +3,10 @@
         {{ range $index, $component := .Site.Params.Social }}
             {{ with $component }}
                 {{ $path := print "icons/social/" $index }}
-                <a href="{{ . }}">{{ partial $path $ }}</a>
-                <span class="hidden">{{ $component }}</span>
+                {{ $socialName := title $index }}
+                <a href="{{ . }}" aria-label="Follow us on {{ $socialName }}" rel="noopener noreferrer" target="_blank">
+                    {{ partial $path $ }}
+                </a>
             {{ end }}
         {{ end }}
     </div>

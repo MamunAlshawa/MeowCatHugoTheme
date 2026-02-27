@@ -1,24 +1,24 @@
-{{/* 
+{{/*
 	Print JSONLd script tag
-	
+
 	@author The New Dynamic
-	
+
 	@access private
 
-	@context map [page (Page), seo (Map)] 
+	@context map [page (Page), seo (Map)]
 
 	Result to achieve:
-	{ 
+	{
 		[x] "@context": "http://schema.org",
 		[x] "@type": "Article",
 		[x] "headline": "Extra! Extra! Read alla bout it",
 		[ ] "alternativeHeadline": "This article is also about robots and stuff",
 		[x] "image": "http://example.com/image.jpg",
-		[ ] "author": "Patrick Coombe", 
+		[ ] "author": "Patrick Coombe",
 		[ ] "award": "Best article ever written",
-		[ ] "editor": "Craig Mount", 
-		[ ] "genre": "search engine optimization", 
-		[ ] "keywords": "seo sales b2b", 
+		[ ] "editor": "Craig Mount",
+		[ ] "genre": "search engine optimization",
+		[ ] "keywords": "seo sales b2b",
 		[x] "wordcount": "1120",
 		[ ] "publisher": "Book Publisher Inc",
 		[x] "url": "http://www.example.com",
@@ -42,9 +42,47 @@
 {{- $s.SetInMap "seo" "dateModified" .seo.updated_time -}}
 {{- $s.SetInMap "seo" "description" .seo.description -}}
 
-{{ with .author -}}
-	{{ $s.SetInMap "seo" "author"  . -}}
-{{ end -}}
+{{- /* Add author information */}}
+{{- with .page.Site.Params.singleAuthorUrl -}}
+  {{- with $.page.Site.GetPage . -}}
+    {{- $author := dict
+      "@type" "Person"
+      "name" .Params.title
+    -}}
+    {{- with .Params.avatar -}}
+      {{- $author = merge $author (dict "image" (. | absURL)) -}}
+    {{- end -}}
+    {{- $s.SetInMap "seo" "author" $author -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Add publisher information */}}
+{{- $publisher := dict
+  "@type" "Organization"
+  "name" .page.Site.Title
+  "logo" (dict "@type" "ImageObject" "url" (.page.Site.BaseURL | absURL))
+-}}
+{{- $s.SetInMap "seo" "publisher" $publisher -}}
+
+{{- /* Add BreadcrumbList schema for better navigation */}}
+{{- $breadcrumbs := slice (dict
+  "@type" "ListItem"
+  "position" 1
+  "name" .page.Site.Title
+  "item" .page.Site.BaseURL
+) -}}
+{{- if not .page.IsHome -}}
+  {{- $breadcrumbs = $breadcrumbs | append (dict
+    "@type" "ListItem"
+    "position" 2
+    "name" .page.Title
+    "item" .page.Permalink
+  ) -}}
+{{- end -}}
+{{- $s.SetInMap "seo" "breadcrumb" (dict
+  "@type" "BreadcrumbList"
+  "itemListElement" $breadcrumbs
+) -}}
 
 <script type="application/ld+json">
 {{ $s.Get "seo" | jsonify | safeJS }}

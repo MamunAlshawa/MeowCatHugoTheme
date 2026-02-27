@@ -2,7 +2,14 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111216" media="(prefers-color-scheme: dark)">
     <link rel="icon" href="/images/favicon.svg">
+    <link rel="canonical" href="{{ .Permalink }}">
+    {{- /* RSS Feed */}}
+    {{- with .OutputFormats.Get "RSS" }}
+    <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
+    {{- end }}
     {{- $style := resources.Get "scss/global.scss" | toCSS }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
     {{- $prism := resources.Get "scss/prism.scss" | toCSS }}
@@ -13,5 +20,14 @@
     <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script>window.searchIndexURL = "{{ "index.json" | relLangURL }}"</script>
+    {{- /* hreflang tags for multilingual SEO */}}
+    {{- if .IsTranslated }}
+      {{- range .AllTranslations }}
+        <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+      {{- end }}
+      <link rel="alternate" hreflang="x-default" href="{{ .Site.BaseURL }}">
+    {{- end }}
+    {{- /* Hugo Generator */}}
+    <meta name="generator" content="Hugo {{ hugo.Version }}">
     {{- partial "seo/print.html" . }}
 </head>

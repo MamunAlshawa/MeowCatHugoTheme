@@ -23,7 +23,9 @@
             {{ end }}>
               <div class="article-data-outer">
                 <div class="image-container">
-                  <img src="{{ $article.Params.hero }}" class="article-image" />
+                {{ with $article.Params.hero }}
+                  <img src="{{ . }}" class="article-image" loading="lazy" decoding="async" alt="{{ $article.Params.title }}" />
+                {{ end }}
                 </div>
                 <div class="article-data">
                   <h2 class="article-title">
@@ -36,7 +38,7 @@
                     {{ $authorPage := $.Site.GetPage $.Site.Params.singleAuthorUrl }}
                     {{ with $authorPage }}
                       {{ with .Params.avatar }}
-                        <img src="{{ . }}" class="article-list-avatar" />
+                        <img src="{{ . }}" class="article-list-avatar" loading="lazy" decoding="async" alt="Author avatar" />
                       {{ end }}
                       <span>{{ .Params.title }}</span>
                     {{ end }}

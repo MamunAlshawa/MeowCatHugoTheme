@@ -3,11 +3,11 @@
     <div class="bio-container">
         {{ $authorPage := .Site.GetPage .Site.Params.singleAuthorUrl }}
         {{ with $authorPage }}
-            <a href="{{ .RelPermalink }}" class="bio-link">
+            <a href="{{ .RelPermalink }}" class="bio-link" aria-label="Read more about {{ .Params.title }}">
                 {{ with .Params.avatar }}
                     <div class="bio-avatar">
                         <div class="bio-avatar-inner">
-                            <img class="author-avatar" src="{{ . }}" />
+                            <img class="author-avatar" src="{{ . }}" loading="lazy" decoding="async" alt="{{ $.Page.Site.Params.title }} avatar" />
                         </div>
                     </div>
                 {{ end }}
