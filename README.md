@@ -1,7 +1,9 @@
 # MeowCatHugoTheme
+
 A Hugo theme.
 
 ## ⚠️ Work in Progress
+
 This Hugo theme is under active development and is not yet production-ready.
 Expect frequent updates and potential breaking changes.
 
@@ -73,10 +75,17 @@ The theme supports multiple languages:
 
 ### Taxonomies
 
-- Authors
 - Tags
 - Categories
 - Series
+
+### Single Author
+
+This theme supports a single author with a dedicated author page showing:
+
+- Author avatar and bio
+- Social media links
+- List of all articles by the author
 
 ## License
 

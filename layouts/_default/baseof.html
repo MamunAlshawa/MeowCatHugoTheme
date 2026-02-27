@@ -26,10 +26,7 @@
     
     {{- $toggleBorder := resources.Get "js/toggleBorder.js" }}
     <script src="{{ $toggleBorder.RelPermalink }}" defer></script>
-    
-    {{- $collapseAuthors := resources.Get "js/collapseAuthors.js" }}
-    <script src="{{ $collapseAuthors.RelPermalink }}" defer></script>
-    
+
     {{- $addFormStyles := resources.Get "js/addFormStyles.js" }}
     <script src="{{ $addFormStyles.RelPermalink }}" defer></script>
 

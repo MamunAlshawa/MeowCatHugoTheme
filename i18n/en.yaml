@@ -40,9 +40,6 @@
 - id: home
   translation: Home
 
-- id: authors
-  translation: Authors
-
 - id: posts
   translation: Posts
 

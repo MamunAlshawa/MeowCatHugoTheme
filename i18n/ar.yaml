@@ -40,9 +40,6 @@
 - id: home
   translation: الرئيسية
 
-- id: authors
-  translation: المؤلفون
-
 - id: posts
   translation: المقالات
 

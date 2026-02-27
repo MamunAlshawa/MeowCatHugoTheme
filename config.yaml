@@ -38,7 +38,6 @@ languages:
 # Taxonomies Configuration
 ###############################################################################
 taxonomies:
-  author: authors
   tag: tags
   category: categories
   series: series
@@ -49,7 +48,6 @@ taxonomies:
 permalinks:
   post: /:year/:month/:slug/
   page: /:slug/
-  authors: /authors/:slug/
 
 ###############################################################################
 # Content Configuration
@@ -209,7 +207,7 @@ enableEmoji: false
 hasCJKLanguage: false
 enableGitInfo: false
 enableRobotsTXT: true
-enableUTF8: false
+enableUTF8: true
 
 ###############################################################################
 # Params - Theme-Specific Settings

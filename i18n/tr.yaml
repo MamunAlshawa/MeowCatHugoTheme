@@ -40,9 +40,6 @@
 - id: home
   translation: Ana Sayfa
 
-- id: authors
-  translation: Yazarlar
-
 - id: posts
   translation: Yazılar
 
