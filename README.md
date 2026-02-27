@@ -1,6 +1,9 @@
 # MeowCatHugoTheme
-
 A Hugo theme.
+
+## ⚠️ Work in Progress
+This Hugo theme is under active development and is not yet production-ready.
+Expect frequent updates and potential breaking changes.
 
 ## Features
 
