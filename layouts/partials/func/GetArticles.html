@@ -1,21 +1,12 @@
 {{/*
-  GetArticles
-  Retrieve article or posts
-
-  @author @regisphilibert
-
+  GetArticles - Hugo v0.157.0+
+  Retrieve published posts only
+  
   @context Page (.)
-
-  @access public
-
-  @return Collection
-          - Page (.)
-
-  @example - Go Template
+  @return Collection of post pages
+  
+  @example:
     {{ $articles := partialCached "func/GetArticles" . "articles" }}
 */}}
-{{ $articles := slice }}
-{{ with where site.RegularPages "Type" "post" }}
-  {{ $articles = . }}
-{{ end }}
-{{ return $articles }}
+{{- $articles := where site.RegularPages "Type" "post" -}}
+{{- return $articles -}}

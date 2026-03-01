@@ -24,7 +24,13 @@
               <div class="article-data-outer">
                 <div class="image-container">
                 {{ with $article.Params.hero }}
-                  <img src="{{ . }}" class="article-image" loading="lazy" decoding="async" alt="{{ $article.Params.title }}" />
+                  {{ partial "utils/image.html" (dict
+                    "src" .
+                    "alt" $article.Params.title
+                    "class" "article-image"
+                    "width" 600
+                    "quality" 80
+                  ) }}
                 {{ end }}
                 </div>
                 <div class="article-data">
@@ -35,14 +41,25 @@
                     {{ $article.Params.excerpt }}
                   </p>
                   <div class="article-metadata">
-                    {{ $authorPage := $.Site.GetPage $.Site.Params.singleAuthorUrl }}
+                    {{ $singleAuthorUrl := $.Site.Params.singleAuthorUrl | default "/authors/mamun-alshawa" }}
+                    {{ $authorPage := $.Site.GetPage $singleAuthorUrl }}
                     {{ with $authorPage }}
-                      {{ with .Params.avatar }}
-                        <img src="{{ . }}" class="article-list-avatar" loading="lazy" decoding="async" alt="Author avatar" />
+                      {{ $avatarSrc := or $.Site.Params.authorAvatar .Params.avatar }}
+                      {{ with $avatarSrc }}
+                        {{ $img := resources.Get . }}
+                        {{ with $img }}
+                          {{ partial "utils/image.html" (dict
+                            "src" .
+                            "alt" "Author avatar"
+                            "class" "article-list-avatar"
+                            "width" 40
+                            "quality" 80
+                          ) }}
+                        {{ end }}
                       {{ end }}
                       <span>{{ .Params.title }}</span>
                     {{ end }}
-                    {{ $article.Date.Format "January 2, 2006" }} • {{ $article.ReadingTime }} {{ i18n "min_read" }}
+                    {{ time.Format ":date_long" $article.Date }} • {{ $article.ReadingTime }} {{ i18n "min_read" }}
                   </div>
                 </div>
               </div>

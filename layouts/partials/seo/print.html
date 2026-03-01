@@ -1,36 +1,12 @@
-{{/* 
-	Structure SEO Data for a given page
-	+ print tags
-	+ print jsonld
-	
-	@author The New Dynamic
-	
-	@access public
+{{/*
+  SEO Partial - Hugo v0.157.0+
+  Structure SEO Data for a given page + print tags + jsonld
+*/}}
 
-	@context Page 
-
-	@example - Go Template
-		{{ partial "seo/tags" . }}
-
-  TODO:
-    - [ ] Improve type test on "events", `article` seems very opinated.
-		- [ ] Find a reasonable default image when `site.Params.default_image` is not set.
-		- [ ] Twitter can sport "author" handle on top of the site's. Devise a test for author? 
-		- [ ] Maybe consider another approach to set the twitter_card (summary, etc...)
-		- [ ] Not sure about image size. Following https://docs.imgix.com/best-practices/improving-seo-traffic, we have a 
-			square of 800x800 */}}
-
- 
-{{/*------------------------------
-	BUILDING SCRATCH SEO OBJECT
-	------------------------------ */}}
-
-{{/* Adding the seo map to scratch which will recieve SEO key/value pairs. */}}
+{{- /* Initialize SEO map */}}
 {{- $.Scratch.Set "seo" dict -}}
 
-{{/* Dates
-	----------------------------- */}}
-
+{{/* Dates */}}
 {{- if not .PublishDate.IsZero -}}
 {{- $.Scratch.SetInMap "seo" "published_time" (.PublishDate.Format "2006-01-02T15:04:05-07:00") -}}
 {{- else if not .Date.IsZero -}}
@@ -40,110 +16,76 @@
 {{- $.Scratch.SetInMap "seo" "updated_time" (.Lastmod.Format "2006-01-02T15:04:05-07:00") -}}
 {{- end -}}
 
- 
-{{/* Description
-	---------------------------- 
-	We use the following order of precedence
-	1. SEO Description, then, if not found,
-	2. Description, then if not found,
-	3. Summary then, if not found,
-	4. site description  */}}
-{{ $description := "" }}
-{{/* 1. SEO Description */}}
+{{/* Description - Priority: SEO > Description > Summary > Site */}}
+{{- $description := "" -}}
 {{- if .Params.seo.description -}}
-	{{- $description = .Params.seo.description -}}
-{{/* 2. Description
-	    As it could potentially contain HTML tags, we strip them with plainify */}}
+    {{- $description = .Params.seo.description -}}
 {{- else if .Params.description -}}
-	{{- $description = .Params.description | plainify -}}
-{{/* 3. Summary  */}}
+    {{- $description = .Params.description | plainify -}}
 {{- else if .Summary -}}
-	{{- $description = .Summary -}}
+    {{- $description = .Summary -}}
 {{- else -}}
-{{/* 4. site description  */}}
-	{{ $description = .Site.Params.Description }}
+    {{- $description = .Site.Params.Description -}}
 {{- end -}}
-
 {{- $.Scratch.SetInMap "seo" "description" $description -}}
- 
-{{/* Title
-  ---------------------------- 
-	We use the following logic
-	1. Every pages: `{.Title} | {.Site.Title}`
-	2. Homepage: , only {.Site.Title} */}}
-{{- if not .IsHome -}}
-	{{/* 1. `{.Title} | {.Site.Title}` */}}
-	{{- $.Scratch.SetInMap "seo" "title" (printf "%s | %s" .Title .Site.Title ) -}}
-{{- else -}}
-	{{/* 2. `{.Site.Title}` */}}
-	{{- $.Scratch.SetInMap "seo" "title" .Site.Title -}}
-{{- end -}}
 
-{{/* Site Name
-	---------------------------- */}}
-{{- with .Param "seo.site_name" -}}
-	{{- $.Scratch.SetInMap "seo" "site_name" . -}}
-{{- else -}}
-	{{- $.Scratch.SetInMap "seo" "site_name" .Site.Title -}}
-{{- end -}}
+{{/* Title */}}
+{{- $title := cond .IsHome .Site.Title (printf "%s | %s" .Title .Site.Title) -}}
+{{- $.Scratch.SetInMap "seo" "title" $title -}}
 
-{{/* Twitter
-	---------------------------- */}}
-{{/* Default twitter_card is "summary_large_image" */}}
+{{/* Site Name */}}
+{{- $siteName := .Site.Title -}}
+{{- if .Param "seo.site_name" -}}
+    {{- $siteName = .Param "seo.site_name" -}}
+{{- end -}}
+{{- $.Scratch.SetInMap "seo" "site_name" $siteName -}}
+
+{{/* Twitter */}}
 {{- $.Scratch.SetInMap "seo" "twitter_card" "summary_large_image" -}}
-
-{{/* We check the site config sports a Social.twitter and use as handle */}}
 {{- with .Site.Params.Social.twitter -}}
-	{{- $.Scratch.SetInMap "seo" "twitter_handle" (printf "@%s" .) -}}
+{{- $.Scratch.SetInMap "seo" "twitter_handle" (printf "@%s" .) -}}
 {{- end -}}
 
-
-{{/* Image
-	---------------------------- */}}
-
+{{/* Image - Priority: SEO > Hero > Avatar > Default */}}
 {{- $img := "/uploads/default.jpg" -}}
-{{- with .Site.Params.seo.default_image -}}
-	{{- $img = . -}}
+{{- if .Site.Params.seo.default_image -}}
+    {{- $img = .Site.Params.seo.default_image -}}
 {{- end -}}
-
-{{- with .Params.seo.image -}}
-	{{- $img = . -}}
-{{ else }}
-	{{/* If no SEO IMAGE is set, we look for the .Params.images slice
-		and use the first one if it has an `image` key */}}
-	{{- with .Params.hero -}}
-		{{- $img = . -}}
-	{{- end -}}
-	{{- with .Params.avatar -}}
-		{{- $img = . -}}
-	{{- end -}}
+{{- if .Params.seo.image -}}
+    {{- $img = .Params.seo.image -}}
+{{- else if .Params.hero -}}
+    {{- $img = .Params.hero -}}
+{{- else if .Params.avatar -}}
+    {{- $img = .Params.avatar -}}
 {{- end -}}
-
-
 {{- $.Scratch.SetInMap "seo" "image" ($img | absURL) -}}
 
-{{/* Type
-	---------------------------- */}}
-{{- $.Scratch.SetInMap "seo" "type" "website" -}}
-
+{{/* Type */}}
+{{- $type := "website" -}}
 {{- if in (slice "blog" "news") .Type -}}
-	{{- $.Scratch.SetInMap "seo" "type" "article" -}}
-{{ else if in (slice "article") .Type }}
-	{{- $.Scratch.SetInMap "seo" "type" "event" -}}
+    {{- $type = "article" -}}
+{{- else if in (slice "article") .Type -}}
+    {{- $type = "event" -}}
 {{- end -}}
+{{- $.Scratch.SetInMap "seo" "type" $type -}}
 
+{{/* Locale - Use language code */}}
+{{- $locale := "en_US" -}}
+{{- if eq .Lang "en" -}}
+    {{- $locale = "en_US" -}}
+{{- else if eq .Lang "tr" -}}
+    {{- $locale = "tr_TR" -}}
+{{- else if eq .Lang "ar" -}}
+    {{- $locale = "ar_AR" -}}
+{{- end -}}
+{{- $.Scratch.SetInMap "seo" "locale" $locale -}}
 
-{{/* Locale
-	---------------------------- */}}
-{{- $.Scratch.SetInMap "seo" "locale" "en_US" -}}
-
-{{/* Canonical
----------------------------- */}}
-{{ with .Params.seo.canonical }}
-  {{- $.Scratch.SetInMap "seo" "canonical" (. | absURL) -}}
-{{ else }}
-{{- $.Scratch.SetInMap "seo" "canonical" .Permalink -}}
-{{ end }}
+{{/* Canonical */}}
+{{- $canonical := .Permalink -}}
+{{- if .Params.seo.canonical -}}
+    {{- $canonical = .Params.seo.canonical | absURL -}}
+{{- end -}}
+{{- $.Scratch.SetInMap "seo" "canonical" $canonical -}}
 
 {{- partial "seo/extend.html" . -}}
 

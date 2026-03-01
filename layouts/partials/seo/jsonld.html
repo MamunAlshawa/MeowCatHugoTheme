@@ -43,17 +43,16 @@
 {{- $s.SetInMap "seo" "description" .seo.description -}}
 
 {{- /* Add author information */}}
-{{- with .page.Site.Params.singleAuthorUrl -}}
-  {{- with $.page.Site.GetPage . -}}
-    {{- $author := dict
-      "@type" "Person"
-      "name" .Params.title
-    -}}
-    {{- with .Params.avatar -}}
-      {{- $author = merge $author (dict "image" (. | absURL)) -}}
-    {{- end -}}
-    {{- $s.SetInMap "seo" "author" $author -}}
+{{- $singleAuthorUrl := .page.Site.Params.singleAuthorUrl | default "/authors/mamun-alshawa" -}}
+{{- with .page.Site.GetPage $singleAuthorUrl -}}
+  {{- $author := dict
+    "@type" "Person"
+    "name" .Params.title
+  -}}
+  {{- with .Params.avatar -}}
+    {{- $author = merge $author (dict "image" (. | absURL)) -}}
   {{- end -}}
+  {{- $s.SetInMap "seo" "author" $author -}}
 {{- end -}}
 
 {{- /* Add publisher information */}}

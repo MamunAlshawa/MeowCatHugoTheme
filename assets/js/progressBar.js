@@ -1,14 +1,7 @@
 window.addEventListener("scroll", updateProgress);
-    
+
 progressBar = document.getElementById("progressBar");
 scrollProgress = document.getElementById("progressIndicator");
-
-if (document.getElementById("subscriptionSection")){
-    articleSubscription = document.getElementById("subscriptionSection").offsetHeight;
-}
-else{
-    articleSubscription = 0;
-}
 
 if(document.getElementById("articleNext")){
     articleNext = document.getElementById("articleNext").offsetHeight;
@@ -19,7 +12,7 @@ else{
 
 footerSection = 150;
 
-bottomOffset = ((articleSubscription + articleNext + footerSection + 250) / document.body.scrollHeight) * 100 ;
+bottomOffset = ((articleNext + footerSection + 250) / document.body.scrollHeight) * 100 ;
 bottomOffset += bottomOffset * 1.1;
 
 

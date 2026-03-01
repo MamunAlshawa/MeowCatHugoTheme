@@ -1,21 +1,50 @@
 {{- /*
-    Image Shortcode with Modern Hugo Features
-    Responsive image with lazy loading (Hugo v0.120+)
-    
-    Usage: {{< img src="image.jpg" alt="Description" >}}
+  Image Shortcode - Hugo v0.157.0+
+  WebP optimized images with Hugo Pipes
+  
+  Usage: {{< img src="/images/photo.jpg" alt="Description" width="800" quality="80" >}}
+  
+  Parameters:
+  - src: Image path (required, must start with /)
+  - alt: Alt text (required)
+  - class: CSS class (optional)
+  - width: Resize width (optional, default: 800)
+  - quality: Image quality 1-100 (optional, default: 80)
+  - loading: lazy/eager (optional, default: lazy)
+  - caption: Optional caption (optional)
 */ -}}
 
 {{- $src := .Get "src" -}}
-{{- $alt := .Get "alt" | default "" -}}
+{{- $alt := .Get "alt" -}}
 {{- $class := .Get "class" | default "" -}}
+{{- $width := .Get "width" | default 800 -}}
+{{- $quality := .Get "quality" | default 80 -}}
 {{- $loading := .Get "loading" | default "lazy" -}}
-{{- $width := .Get "width" | default "" -}}
-{{- $height := .Get "height" | default "" -}}
+{{- $caption := .Get "caption" -}}
 
-<img src="{{ $src }}" 
-     alt="{{ $alt }}" 
-     class="{{ $class }}"
-     loading="{{ $loading }}"
-     decoding="async"
-     width="{{ $width }}"
-     height="{{ $height }}">
+{{- $img := resources.Get $src -}}
+{{- if $img -}}
+  {{- $resizeOp := printf "%dx webp q%d" $width $quality -}}
+  {{- $processed := try ($img.Resize $resizeOp) -}}
+  {{- if $processed.Err -}}
+    {{- /* Image processing failed, render fallback */ -}}
+    <img src="{{ $src }}"
+         alt="{{ $alt }}"
+         class="{{ $class }}"
+         loading="{{ $loading }}"
+         decoding="async">
+  {{- else -}}
+    {{- $result := $processed.Value -}}
+    <img src="{{ $result.RelPermalink }}"
+         alt="{{ $alt }}"
+         class="{{ $class }}"
+         loading="{{ $loading }}"
+         decoding="async"
+         width="{{ $result.Width }}"
+         height="{{ $result.Height }}">
+  {{- end -}}
+{{- end -}}
+
+{{- with $caption -}}
+  <span class="image-caption">{{ . | markdownify }}</span>
+{{- end -}}

@@ -37,7 +37,13 @@ of the whole section and append them to our $next slice. */}}
                 {{ if not $index}} id="article-link-bigger"{{ end }}>
                     <div>
                         <div class="image-container">
-                            <img src="{{ $article.Params.hero }}" class="article-image" loading="lazy" decoding="async" alt="{{ $article.Params.title }}" />
+                            {{ partial "utils/image.html" (dict
+                                "src" $article.Params.hero
+                                "alt" $article.Params.title
+                                "class" "article-image"
+                                "width" 600
+                                "quality" 80
+                            ) }}
                         </div>
                         <div>
                             <h2 class="article-title">

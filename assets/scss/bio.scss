@@ -61,6 +61,15 @@
   background: rgba(0, 0, 0, 0.25);
   margin-right: 16px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .bio-text{

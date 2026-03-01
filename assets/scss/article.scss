@@ -140,6 +140,9 @@
 
     img{
         width: 100%;
+        max-height: 425px;
+        object-fit: cover;
+        object-position: center;
     }
 
     /*DESKTOP MEDIUM*/
@@ -163,6 +166,10 @@
     
         & > div {
           height: 220px;
+        }
+
+        img {
+            max-height: 220px;
         }
     }
 }

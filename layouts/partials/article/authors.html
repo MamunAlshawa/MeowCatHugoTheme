@@ -1,10 +1,21 @@
 
-{{ $authorPage := .Site.GetPage .Site.Params.singleAuthorUrl }}
+{{ $singleAuthorUrl := .Site.Params.singleAuthorUrl | default "/authors/mamun-alshawa" }}
+{{ $authorPage := .Site.GetPage $singleAuthorUrl }}
 {{ with $authorPage }}
-    <a href="{{ $.Site.Params.singleAuthorUrl }}" class="article-author-link">
-        {{ with .Params.avatar }}
+    <a href="{{ .RelPermalink }}" class="article-author-link">
+        {{ $avatarSrc := or .Site.Params.authorAvatar .Params.avatar }}
+        {{ with $avatarSrc }}
             <div class="article-author-avatar">
-                <img src="{{ . }}" loading="lazy" decoding="async" alt="Author avatar" />
+                {{ $img := resources.Get . }}
+                {{ with $img }}
+                    {{ partial "utils/image.html" (dict
+                        "src" .
+                        "alt" "Author avatar"
+                        "class" "author-avatar"
+                        "width" 40
+                        "quality" 80
+                    ) }}
+                {{ end }}
             </div>
         {{ end }}
         <strong>{{ .Params.title }}</strong>

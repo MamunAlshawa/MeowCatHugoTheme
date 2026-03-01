@@ -1,0 +1,78 @@
+{{- /*
+  Responsive Image Partial - Hugo v0.157.0+
+  Generates WebP images with srcset for responsive loading
+
+  @context Dict with keys:
+    - src: string (required) - image path (must start with /)
+    - alt: string (required) - alt text
+    - class: string (optional) - CSS class
+    - loading: string (optional) - lazy/eager (default: lazy)
+    - widths: slice (optional) - responsive widths (default: [400, 800, 1200])
+    - quality: int (optional) - image quality (default: 80)
+
+  @example:
+    {{ partial "utils/responsive-image.html" (dict "src" .Params.hero "alt" .Title "class" "hero-image") }}
+*/ -}}
+
+{{- $src := .src -}}
+{{- $alt := .alt -}}
+{{- $class := .class | default "" -}}
+{{- $loading := .loading | default "lazy" -}}
+{{- $widths := .widths | default (slice 400 800 1200) -}}
+{{- $quality := .quality | default 80 -}}
+
+{{- if $src -}}
+  {{- $img := resources.Get $src -}}
+  {{- if $img -}}
+    {{- /* Generate responsive images with error handling */ -}}
+    {{- $smallOp := printf "%dx webp q%d" (index $widths 0) $quality -}}
+    {{- $mediumOp := printf "%dx webp q%d" (index $widths 1) $quality -}}
+    {{- $largeOp := printf "%dx webp q%d" (index $widths 2) $quality -}}
+
+    {{- $small := try ($img.Resize $smallOp) -}}
+    {{- $medium := try ($img.Resize $mediumOp) -}}
+    {{- $large := try ($img.Resize $largeOp) -}}
+
+    {{- if or $small.Err $medium.Err $large.Err -}}
+      {{- /* Image processing failed, render fallback */ -}}
+      <img src="{{ $src }}"
+           alt="{{ $alt }}"
+           class="{{ $class }}"
+           loading="{{ $loading }}"
+           decoding="async">
+    {{- else -}}
+      {{- $smallResult := $small.Value -}}
+      {{- $mediumResult := $medium.Value -}}
+      {{- $largeResult := $large.Value -}}
+
+      {{- /* Build srcset */ -}}
+      {{- $srcset := printf "%s %dw, %s %dw, %s %dw"
+          $smallResult.RelPermalink (index $widths 0)
+          $mediumResult.RelPermalink (index $widths 1)
+          $largeResult.RelPermalink (index $widths 2) -}}
+
+      {{- /* Build sizes */ -}}
+      {{- $sizes := printf "(max-width: %dpx) %dpx, (max-width: %dpx) %dpx, %dpx"
+          (add (index $widths 0) 200) (index $widths 0)
+          (add (index $widths 1) 200) (index $widths 1)
+          (index $widths 2) -}}
+
+      <img src="{{ $smallResult.RelPermalink }}"
+           srcset="{{ $srcset | safeHTMLAttr }}"
+           sizes="{{ $sizes }}"
+           alt="{{ $alt }}"
+           class="{{ $class }}"
+           loading="{{ $loading }}"
+           decoding="async"
+           width="{{ $smallResult.Width }}"
+           height="{{ $smallResult.Height }}">
+    {{- end -}}
+  {{- else -}}
+    {{- /* Image not found, render simple img tag */ -}}
+    <img src="{{ $src }}"
+         alt="{{ $alt }}"
+         class="{{ $class }}"
+         loading="{{ $loading }}"
+         decoding="async">
+  {{- end -}}
+{{- end -}}

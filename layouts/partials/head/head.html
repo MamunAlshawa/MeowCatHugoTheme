@@ -4,22 +4,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#111216" media="(prefers-color-scheme: dark)">
-    <link rel="icon" href="/images/favicon.svg">
+    
+    {{- /* Favicon - Use logo if available, otherwise fallback to /images/favicon.svg */}}
+    {{- with .Site.Params.logo }}
+        {{- $logo := resources.Get . -}}
+        {{- if $logo }}
+            {{- $favicon := $logo.Resize "32x png" -}}
+            <link rel="icon" href="{{ $favicon.RelPermalink }}" type="image/png">
+            <link rel="apple-touch-icon" href="{{ $favicon.RelPermalink }}">
+        {{- else }}
+            <link rel="icon" href="/images/favicon.svg">
+        {{- end }}
+    {{- else }}
+        <link rel="icon" href="/images/favicon.svg">
+    {{- end }}
+    
     <link rel="canonical" href="{{ .Permalink }}">
+
+    {{- /* Inline theme script to prevent flash on page load */}}
+    <script>
+        (function() {
+            var isLight = localStorage.getItem("isLight");
+            if (isLight === null) {
+                isLight = "true";
+                localStorage.setItem("isLight", isLight);
+            }
+            if (isLight === "false") {
+                document.documentElement.classList.add("dark-theme");
+            }
+        })();
+    </script>
+
     {{- /* RSS Feed */}}
     {{- with .OutputFormats.Get "RSS" }}
     <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
     {{- end }}
-    {{- $style := resources.Get "scss/global.scss" | toCSS }}
-    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
-    {{- $prism := resources.Get "scss/prism.scss" | toCSS }}
-    <link rel="stylesheet" href="{{ $prism.RelPermalink }}">
+
+    {{- /* Bundle CSS for production - Hugo v0.157.0+ uses css.Sass */}}
+    {{- $cssMain := resources.Get "scss/global.scss" | css.Sass }}
+    {{- $cssPrism := resources.Get "scss/prism.scss" | css.Sass }}
+
+    {{- if hugo.IsProduction -}}
+        {{- $css := slice $cssMain $cssPrism | resources.Concat "css/bundle.css" | resources.Minify | resources.Fingerprint "sha512" -}}
+        <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+    {{- else -}}
+        {{- $css := slice $cssMain $cssPrism | resources.Concat "css/bundle.css" -}}
+        <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+    {{- end }}
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script>window.searchIndexURL = "{{ "index.json" | relLangURL }}"</script>
+
     {{- /* hreflang tags for multilingual SEO */}}
     {{- if .IsTranslated }}
       {{- range .AllTranslations }}
@@ -27,7 +66,9 @@
       {{- end }}
       <link rel="alternate" hreflang="x-default" href="{{ .Site.BaseURL }}">
     {{- end }}
+
     {{- /* Hugo Generator */}}
     <meta name="generator" content="Hugo {{ hugo.Version }}">
+
     {{- partial "seo/print.html" . }}
 </head>

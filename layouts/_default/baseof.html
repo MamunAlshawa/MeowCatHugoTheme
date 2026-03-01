@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="{{ with site.Language.LanguageCode }}{{ . }}{{ else }}en{{ end }}" dir="{{ if eq site.Language.Lang "ar" }}rtl{{ else }}ltr{{ end }}">
+{{- $lang := site.Language.LanguageCode | default "en" -}}
+{{- $dir := cond (eq site.Language.Lang "ar") "rtl" "ltr" -}}
+<html lang="{{ $lang }}" dir="{{ $dir }}">
 
 {{- partial "head/head.html" . }}
 
@@ -7,46 +9,43 @@
     {{- /* Skip to content link for accessibility */}}
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    {{- /* Load JS files individually with defer for better performance */}}
-    {{- $init := resources.Get "js/initColors.js" }}
-    <script src="{{ $init.RelPermalink }}" defer></script>
+    {{- /* Bundle and minify JS for production */}}
+    {{- $jsCore := slice
+        (resources.Get "js/initColors.js")
+        (resources.Get "js/toggleLogos.js")
+        (resources.Get "js/toggleColors.js")
+        (resources.Get "js/toggleLayout.js")
+        (resources.Get "js/toggleBorder.js")
+    -}}
 
-    {{- $prism := resources.Get "js/prism.js" }}
-    <script src="{{ $prism.RelPermalink }}" defer></script>
+    {{- if hugo.IsProduction -}}
+        {{- $jsBundle := $jsCore | resources.Concat "js/bundle.js" | resources.Minify | resources.Fingerprint "sha512" -}}
+        <script src="{{ $jsBundle.RelPermalink }}" integrity="{{ $jsBundle.Data.Integrity }}" defer></script>
 
-    {{- $toggleLogos := resources.Get "js/toggleLogos.js" }}
-    <script src="{{ $toggleLogos.RelPermalink }}" defer></script>
+        {{- /* Prism only on post pages */}}
+        {{- if eq .Section "post" -}}
+            {{- $prism := resources.Get "js/prism.js" | resources.Minify | resources.Fingerprint "sha512" -}}
+            <script src="{{ $prism.RelPermalink }}" integrity="{{ $prism.Data.Integrity }}" defer></script>
+        {{- end -}}
 
-    {{- $toggleColors := resources.Get "js/toggleColors.js" }}
-    <script src="{{ $toggleColors.RelPermalink }}" defer></script>
+        {{- /* Progress bar only on post pages */}}
+        {{- $progress := resources.Get "js/progressBar.js" | resources.Minify | resources.Fingerprint "sha512" -}}
+        <script src="{{ $progress.RelPermalink }}" integrity="{{ $progress.Data.Integrity }}" defer></script>
+    {{- else -}}
+        {{- $jsBundle := $jsCore | resources.Concat "js/bundle.js" -}}
+        <script src="{{ $jsBundle.RelPermalink }}" defer></script>
 
-    {{- $copyUrl := resources.Get "js/copyUrl.js" }}
-    <script src="{{ $copyUrl.RelPermalink }}" defer></script>
-
-    {{- $toggleLayout := resources.Get "js/toggleLayout.js" }}
-    <script src="{{ $toggleLayout.RelPermalink }}" defer></script>
-
-    {{- $toggleBorder := resources.Get "js/toggleBorder.js" }}
-    <script src="{{ $toggleBorder.RelPermalink }}" defer></script>
-
-    {{- $addFormStyles := resources.Get "js/addFormStyles.js" }}
-    <script src="{{ $addFormStyles.RelPermalink }}" defer></script>
+        {{- if eq .Section "post" -}}
+            <script src="{{ (resources.Get "js/prism.js").RelPermalink }}" defer></script>
+            <script src="{{ (resources.Get "js/progressBar.js").RelPermalink }}" defer></script>
+        {{- end -}}
+    {{- end -}}
 
     <div class="layout-styled" id="main-content">
-
         {{- partial "header.html" . }}
-
         {{- block "main" . }}{{ end }}
-
         {{- partial "footer.html" . }}
-
     </div>
-
-    {{- /* Progress bar script - loaded only on post pages */}}
-    {{- if eq .Section "post" }}
-        {{- $progress := resources.Get "js/progressBar.js" }}
-        <script src="{{ $progress.RelPermalink }}" defer></script>
-    {{- end }}
 </body>
 
 </html>

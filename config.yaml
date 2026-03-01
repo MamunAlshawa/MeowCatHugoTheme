@@ -1,154 +1,113 @@
-# MeowCatHugoTheme - Complete Hugo Configuration
-# This file contains ALL Hugo settings as defaults for the theme.
-# Site-specific settings should go in your site's config.yaml.
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  MeowCatHugoTheme Configuration - Hugo v0.157.0+                             ║
+# ║  ⚠️ HUGO v0.157.0+ ONLY - NO BACKWARD COMPATIBILITY                          ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
 
-baseURL: "https://example.com"
-languageCode: "en-us"
-title: "My Blog"
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: BASIC SITE SETTINGS
+# ───────────────────────────────────────────────────────────────────────────────
+baseURL: "https://your-domain.com/"
+languageCode: en-us
+title: "Your Site Title"
 theme: MeowCatHugoTheme
 
-###############################################################################
-# Languages Configuration
-###############################################################################
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: LANGUAGES (Keep at least one, remove unused)
+# ───────────────────────────────────────────────────────────────────────────────
 languages:
   en:
     languageName: English
     languageCode: en-us
     weight: 1
-    title: English
     params:
-      description: "A Hugo port of the Novela theme by Narative"
-  tr:
-    languageName: Türkçe
-    languageCode: tr-tr
-    weight: 2
-    title: Türkçe
-    params:
-      description: "Narative'nin Novela temasının Hugo portu"
-  ar:
-    languageName: العربية
-    languageCode: ar
-    weight: 3
-    rtl: true
-    title: العربية
-    params:
-      description: "موضوع Novela من Narative لموقع Hugo"
+      description: "Your site description"
+      title: "Your Site Title"
+  
+  # Turkish - Uncomment if needed
+  # tr:
+  #   languageName: Türkçe
+  #   languageCode: tr
+  #   weight: 2
+  #   params:
+  #     description: "Site açıklaması"
+  #     title: "Site Başlığı"
+  
+  # Arabic - Uncomment if needed (RTL support)
+  # ar:
+  #   languageName: العربية
+  #   languageCode: ar
+  #   weight: 3
+  #   rtl: true
+  #   params:
+  #     description: "وصف الموقع"
+  #     title: "عنوان الموقع"
 
-###############################################################################
-# Taxonomies Configuration
-###############################################################################
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: TAXONOMIES
+# ───────────────────────────────────────────────────────────────────────────────
 taxonomies:
   tag: tags
   category: categories
-  series: series
 
-###############################################################################
-# Permalinks Configuration
-###############################################################################
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: PERMALINKS
+# ───────────────────────────────────────────────────────────────────────────────
 permalinks:
   post: /:year/:month/:slug/
-  page: /:slug/
+  authors: /authors/:slug/
 
-###############################################################################
-# Content Configuration
-###############################################################################
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: CONTENT SETTINGS
+# ───────────────────────────────────────────────────────────────────────────────
 content:
-  license: ""
   preserveTaxonomyNames: true
-  pluralizeListTitles: true
   defaultContentLanguage: en
   defaultContentLanguageInSubdir: false
 
-###############################################################################
-# Markup Configuration
-###############################################################################
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: MARKUP (Markdown & Syntax Highlighting)
+# ───────────────────────────────────────────────────────────────────────────────
 markup:
-  defaultMarkdownHandler: goldmark
   goldmark:
-    duplicateResourceFiles: false
     extensions:
-      cjk:
-        eastAsianLineBreaks: false
-        eastAsianLineBreaksStyle: simple
-        enable: false
-        escapedSpace: false
       definitionList: true
-      extras:
-        delete:
-          enable: false
-        insert:
-          enable: false
-        mark:
-          enable: false
-        subscript:
-          enable: false
-        superscript:
-          enable: false
-      footnote:
-        backlinkHTML: "&#8594;"
-        enable: true
-        enableAutoIDPrefix: false
+      footnote: true
       linkify: true
       linkifyProtocol: https
-      passthrough:
-        delimiters:
-          block: []
-          inline: []
-        enable: false
       strikethrough: true
       table: true
       taskList: true
-      typographer:
-        apostrophe: "''"
-        disable: false
-        ellipsis: "..."
-        emDash: "--"
-        enDash: "-"
-        leftAngleQuote: "<<"
-        leftDoubleQuote: '"'
-        leftSingleQuote: "'"
-        rightAngleQuote: ">>"
-        rightDoubleQuote: '"'
-        rightSingleQuote: "'"
     parser:
-      attribute:
-        block: false
-        title: true
-      autoDefinitionTermID: false
       autoHeadingID: true
-      autoIDType: github
-      wrapStandAloneImageWithinParagraph: true
-    renderHooks:
-      image:
-        useEmbedded: never
-      link:
-        useEmbedded: never
+      autoHeadingIDType: github
+      attribute:
+        block: true
+        title: true
     renderer:
       hardWraps: false
-      unsafe: true
+      unsafe: false
       xhtml: false
+
   highlight:
-    anchorLineNos: false
     codeFences: true
     guessSyntax: false
-    hl_Lines: ""
-    hl_inline: false
-    lineAnchors: ""
-    lineNoStart: 1
     lineNos: false
-    lineNumbersInTable: true
+    lineNumbersInTable: false
     noClasses: false
     style: monokai
     tabWidth: 4
-    wrapperClass: highlight
+
   tableOfContents:
+    startLevel: 2
     endLevel: 3
     ordered: false
-    startLevel: 2
 
-###############################################################################
-# Output Configuration
-###############################################################################
+ignoreLogs:
+  - "warning-goldmark-raw-html"
+
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: OUTPUTS
+# ───────────────────────────────────────────────────────────────────────────────
 outputs:
   home:
     - HTML
@@ -156,46 +115,89 @@ outputs:
     - JSON
   page:
     - HTML
+  section:
+    - HTML
+    - RSS
+  taxonomy:
+    - HTML
+    - RSS
 
-###############################################################################
-# Sitemap Configuration
-###############################################################################
-sitemap:
-  changefreq: weekly
-  filename: sitemap.xml
-  priority: 0.5
-  disable: false
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: PAGINATION
+# ───────────────────────────────────────────────────────────────────────────────
+pagination:
+  pagerSize: 10
+  path: page
+  disableAliases: false
 
-###############################################################################
-# Imaging Configuration
-###############################################################################
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: IMAGE PROCESSING
+# ───────────────────────────────────────────────────────────────────────────────
 imaging:
   resampleFilter: Lanczos
-  quality: 75
+  quality: 80
   anchor: smart
 
-###############################################################################
-# Social Configuration
-###############################################################################
-social:
-  twitter: "https://x.com/yourhandle"
-  github: "https://github.com/yourhandle"
-  instagram: "https://instagram.com/yourhandle"
-  linkedin: "https://linkedin.com/in/yourhandle"
-  dribbble: "https://dribbble.com/yourhandle"
-  youtube: "https://youtube.com/@yourhandle"
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: SITE PARAMETERS
+# ───────────────────────────────────────────────────────────────────────────────
+params:
+  # Author (REQUIRED)
+  author:
+    name: "Your Name"
+    email: "your.email@example.com"
+  
+  # Site Logo - Navbar & Favicon (REQUIRED)
+  logo: "images/profile-01.jpeg"
+  
+  # Author Avatar - Bio & Article bylines (OPTIONAL - falls back to page avatar)
+  authorAvatar: "images/author-avatar.jpeg"
+  
+  # Show bio section (REQUIRED)
+  showBio: true
+  
+  # Author page URL (REQUIRED - for SEO)
+  singleAuthorUrl: "/authors/your-slug"
+  
+  # Social Media (OPTIONAL - leave empty "" to hide)
+  social:
+    twitter: ""      # e.g., "yourname" → https://twitter.com/yourname
+    github: ""       # e.g., "yourname" → https://github.com/yourname
+    linkedin: ""     # e.g., "in/yourname" → https://linkedin.com/in/yourname
+    facebook: ""
+    instagram: ""
+    medium: ""
+    dribbble: ""
+    youtube: ""
+    unsplash: ""
+    patreon: ""
+    paypal: ""
+  
+  # SEO (REQUIRED for JSON-LD)
+  seo:
+    default_image: "/images/default-og.jpg"  # 1200x630px recommended
+    jsonld: true
+    debug: false
+    site_name: "Your Site Name"
 
-###############################################################################
-# Security Configuration
-###############################################################################
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: BUILD SETTINGS (Hugo v0.157.0+)
+# ───────────────────────────────────────────────────────────────────────────────
+build:
+  buildStats:
+    enable: true
+    disableResourceMeta: false
+  cacheBusters:
+    - source: assets/.*\.(js|css|scss)$
+      target: $1
+
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: SECURITY (SCSS compilation needs dart-sass-embedded)
+# ───────────────────────────────────────────────────────────────────────────────
 security:
   exec:
     allow:
       - ^dart-sass-embedded$
-      - ^go$
-      - ^npx$
-      - ^postcss$
-      - ^tailwindcss$
     osEnv:
       - (?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$
   funcs:
@@ -208,28 +210,23 @@ security:
     urls:
       - .*
 
-###############################################################################
-# Advanced Configuration
-###############################################################################
-ignoreFiles: []
+# ───────────────────────────────────────────────────────────────────────────────
+#  REQUIRED: PERFORMANCE
+# ───────────────────────────────────────────────────────────────────────────────
 enableEmoji: false
-hasCJKLanguage: false
-enableGitInfo: false
 enableRobotsTXT: true
-enableUTF8: true
+enableGitInfo: false
 
-###############################################################################
-# Params - Theme-Specific Settings
-###############################################################################
-params:
-  logo: ""
-  singleAuthorUrl: ""
-  showBio: true
-
-###############################################################################
-# SEO Settings
-###############################################################################
-seo:
-  default_image: /images/hero-2.jpg
-  jsonld: true
-  debug: false
+# ═══════════════════════════════════════════════════════════════════════════════
+#  SETUP CHECKLIST:
+# ═══════════════════════════════════════════════════════════════════════════════
+#  □ Change baseURL to your domain
+#  □ Update title
+#  □ Remove unused languages (keep at least one)
+#  □ Set author.name and author.email
+#  □ Add logo image to assets/images/ and update path
+#  □ Set singleAuthorUrl to match your author page slug
+#  □ Add social media usernames (optional)
+#  □ Add default-og.jpg for SEO (optional but recommended)
+#  □ Test: hugo server --buildDrafts
+# ═══════════════════════════════════════════════════════════════════════════════

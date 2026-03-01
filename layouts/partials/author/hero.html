@@ -1,8 +1,18 @@
 <section class="section narrow">
     <div class="author-hero">
-        {{ with .Params.avatar }}
+        {{ $avatarSrc := or .Site.Params.authorAvatar .Params.avatar }}
+        {{ with $avatarSrc }}
             <div class="author-hero-image">
-                <img src="{{ . }}" loading="lazy" decoding="async" alt="Author avatar" />
+                {{ $img := resources.Get . }}
+                {{ with $img }}
+                    {{ partial "utils/image.html" (dict
+                        "src" .
+                        "alt" "Author avatar"
+                        "class" "author-avatar"
+                        "width" 400
+                        "quality" 85
+                    ) }}
+                {{ end }}
             </div>
         {{ end }}
         <h1 class="author-heading">{{ .Title }}</h1>

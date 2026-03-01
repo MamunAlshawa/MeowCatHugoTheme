@@ -12,7 +12,6 @@
 @import "paragraph.scss";
 @import "progress.scss";
 @import "social-links.scss";
-@import "subscription.scss";
 @import "tables.scss";
 @import "section.scss";
 @import "articles.scss";
@@ -21,6 +20,27 @@
 @import "article.scss";
 @import "authors.scss";
 @import "paginator.scss";
+
+/* Dark theme class - applied by inline script to prevent flash */
+html.dark-theme body {
+    --primary: #fff;
+    --secondary: #fff;
+    --grey: #73737D;
+    --background-color: #111216;
+    --accent: #E9DAAC;
+    --hover: rgba(255, 255, 255, 0.07);
+    --gradient: linear-gradient(180deg, #111216 0%, rgba(66, 81, 98, 0.36) 100%);
+    --articleText: #fff;
+    --track: rgba(255, 255, 255, 0.3);
+    --progress: #fff;
+    --card: #1D2128;
+    --error: #EE565B;
+    --success: #46B17B;
+    --errorBackground: rgba(238, 86, 91, 0.1);
+    --horizontalRule: rgba(255, 255, 255, 0.15);
+    --inputBackground: rgba(255, 255, 255, 0.07);
+    --tooltip: #000;
+}
 
 
 /**
@@ -382,15 +402,7 @@ img{
     margin-left: 0;
     margin-right: 3.2rem;
   }
-  
-  .subscription-container {
-    text-align: right;
-  }
-  
-  .subscription-form {
-    flex-direction: row-reverse;
-  }
-  
+
   .bio-container {
     flex-direction: row-reverse;
     text-align: right;

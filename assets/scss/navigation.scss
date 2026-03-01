@@ -201,8 +201,11 @@
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     flex-direction: row;
-    gap: 20px;
+    gap: 8px;
 }
 
 [dir="rtl"] .nav-controls {
@@ -216,44 +219,12 @@
     }
 }
 
-.tool-tip{
-    opacity: 0;
-    -webkit-transform: translateY(6px);
-        -ms-transform: translateY(6px);
-            transform: translateY(6px);
-    position: absolute;
-    padding: 4px 13px;
-    border-radius: 5px;
-    font-size: 14px;
-    top: -35px;
-    color: var(--primary);
-    background-color: var(--tooltip);
-    -webkit-animation-duration: 2s;
-            animation-duration: 2s;
-}
-
-@-webkit-keyframes pan-toolbar {
-    0% {opacity: 0; -webkit-transform: translateY(6px); transform: translateY(6px);}
-    30% {opacity: 1; -webkit-transform: translateY(0); transform: translateY(0);}
-    70% {opacity: 1; -webkit-transform: translateY(0); transform: translateY(0);}
-    100% {opacity: 0; -webkit-transform: translateY(6px); transform: translateY(6px);}
-}
-
-@keyframes pan-toolbar {
-    0% {opacity: 0; -webkit-transform: translateY(6px); transform: translateY(6px);}
-    30% {opacity: 1; -webkit-transform: translateY(0); transform: translateY(0);}
-    70% {opacity: 1; -webkit-transform: translateY(0); transform: translateY(0);}
-    100% {opacity: 0; -webkit-transform: translateY(6px); transform: translateY(6px);}
-}
-
 .icon-wrapper{
     opacity: 0.5;
     position: relative;
-    border-radius: 5px;
+    border-radius: 50%;
     width: 40px;
-    height: 25px;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    height: 40px;
     display: flex;
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -261,13 +232,25 @@
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-    -webkit-transition: opacity 0.3s ease;
-    -o-transition: opacity 0.3s ease;
-    transition: opacity 0.3s ease;
+    padding: 0;
+    margin: 0;
+    -webkit-transition: opacity 0.3s ease, background-color 0.2s ease;
+    -o-transition: opacity 0.3s ease, background-color 0.2s ease;
+    transition: opacity 0.3s ease, background-color 0.2s ease;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--primary);
+}
+
+.icon-wrapper svg{
+    display: block;
+    margin: auto;
 }
 
 .icon-wrapper:hover{
     opacity: 1;
+    background-color: var(--hover);
 }
 
 .icon-wrapper[class*="data-ally"]:focus::after {
@@ -288,200 +271,100 @@
         display: -webkit-inline-box;
         display: -ms-inline-flexbox;
         display: inline-flex;
-        -webkit-transform: scale(0.708);
-            -ms-transform: scale(0.708);
-                transform: scale(0.708);
-        margin-left: 10px;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 36px;
+        height: 36px;
     }
     .icon-wrapper:hover{
-        opacity: 0.5;
+        opacity: 1;
     }
 }
 
-.sun-rays{
-    position: relative;
-    right: -16px;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    border: 2px solid
-      var(--primary);
-    background: var(--primary);
-    -webkit-transform: 1;
-        -ms-transform: 1;
-            transform: 1;
-    -webkit-transition: all 0.45s ease;
-    -o-transition: all 0.45s ease;
-    transition: all 0.45s ease;
-    overflow: hidden;
-    -webkit-box-shadow: 0 -23px 0 var(--primary),
-        0 23px 0 var(--primary),
-        23px 0 0 var(--primary),
-        -23px 0 0 var(--primary),
-        15px 15px 0 var(--primary),
-        -15px 15px 0 var(--primary),
-        15px -15px 0 var(--primary),
-        -15px -15px 0 var(--primary);
-            box-shadow: 0 -23px 0 var(--primary),
-        0 23px 0 var(--primary),
-        23px 0 0 var(--primary),
-        -23px 0 0 var(--primary),
-        15px 15px 0 var(--primary),
-        -15px 15px 0 var(--primary),
-        15px -15px 0 var(--primary),
-        -15px -15px 0 var(--primary);
-    -webkit-transform: scale(0.6);
-        -ms-transform: scale(0.6);
-            transform: scale(0.6);
+/* Search Toggle - Ensure proper alignment */
+.search-toggle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
 }
 
-[dir="rtl"] .sun-rays {
-    right: auto;
-    left: -16px;
+.search-toggle svg{
+    display: block;
+    margin: auto;
 }
 
-.moon-or-sun{
-    position: relative;
+/* Language Button - Ensure proper alignment */
+.lang-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 6px 10px;
+    margin: 0;
+}
+
+.lang-button svg{
+    display: block;
+    margin: auto;
+}
+
+.lang-button span{
+    display: block;
+    margin: auto;
+}
+
+/* Theme Toggle Icons */
+.theme-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.theme-icon-sun {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.theme-icon-moon {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.theme-icon-svg {
+    display: block;
+    margin: auto;
+}
+
+.theme-icon-svg {
     width: 24px;
     height: 24px;
-    border-radius: 50%;
-    border: 2px solid
-      var(--primary);
-    background: var(--primary);
-    -webkit-transform: 1;
-        -ms-transform: 1;
-            transform: 1;
-    -webkit-transition: all 0.45s ease;
-    -o-transition: all 0.45s ease;
-    transition: all 0.45s ease;
-    overflow: hidden;
+    color: var(--primary);
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+    vertical-align: middle;
+    -webkit-box-flex: 0;
+        -ms-flex: none;
+            flex: none;
+    line-height: 0;
 }
 
-.moon-mask{
-    position: absolute;
-    right: -1px;
-    top: -8px;
-    height: 24px;
-    width: 24px;
-    border-radius: 50%;
-    border: 0;
-    background: var(--background-color);
-    -webkit-transform: translate("0, 0");
-        -ms-transform: translate("0, 0");
-            transform: translate("0, 0");
-    opacity: 1;
-    -webkit-transition: var(--color-mode-transition), -webkit-transform 0.45s ease;
-    transition: var(--color-mode-transition), -webkit-transform 0.45s ease;
-    -o-transition: transform 0.45s ease, var(--color-mode-transition);
-    transition: transform 0.45s ease, var(--color-mode-transition);
-    transition: transform 0.45s ease, var(--color-mode-transition), -webkit-transform 0.45s ease;
-}
-
-[dir="rtl"] .moon-mask {
-    right: auto;
-    left: -1px;
-}
-
-.mask-to-sun-animation{
-    -webkit-animation-name: mask-to-sun;
-            animation-name: mask-to-sun;
-    -webkit-animation-duration: 0.4s;
-            animation-duration: 0.4s;
-}
-
-.mask-to-moon-animation{
-    -webkit-animation-name: mask-to-moon;
-            animation-name: mask-to-moon;
-    -webkit-animation-duration: 0.4s;
-            animation-duration: 0.4s;
-}
-
-.to-sun-animation{
-    -webkit-animation-name: to-sun;
-            animation-name: to-sun;
-    -webkit-animation-duration: 0.4s;
-            animation-duration: 0.4s;
-}
-
-.to-moon-animation{
-    -webkit-animation-name: to-moon;
-            animation-name: to-moon;
-    -webkit-animation-duration: 0.4s;
-            animation-duration: 0.4s;
-}
-
-.expand-rays{
-    -webkit-animation-name: expand-rays;
-            animation-name: expand-rays;
-    -webkit-animation-duration: 0.5s;
-            animation-duration: 0.5s;
-}
-
-.contract-rays{
-    -webkit-animation-name: contract-rays;
-            animation-name: contract-rays;
-    -webkit-animation-duration: 0.5s;
-            animation-duration: 0.5s;
-}
-
-@-webkit-keyframes mask-to-sun {
-    from {top: -8px; right: -5px; -webkit-transform: scale(1); transform: scale(1);}
-    to {top: -25px; right: -15px; -webkit-transform: scale(0.5); transform: scale(0.5);}
-}
-
-@keyframes mask-to-sun {
-    from {top: -8px; right: -5px; -webkit-transform: scale(1); transform: scale(1);}
-    to {top: -25px; right: -15px; -webkit-transform: scale(0.5); transform: scale(0.5);}
-}
-
-@-webkit-keyframes mask-to-moon {
-    from {top: -25px; right: -15px; -webkit-transform: scale(0.5); transform: scale(0.5);}
-    to {top: -8px; right: -5px; -webkit-transform: scale(1); transform: scale(1);}
-}
-
-@keyframes mask-to-moon {
-    from {top: -25px; right: -15px; -webkit-transform: scale(0.5); transform: scale(0.5);}
-    to {top: -8px; right: -5px; -webkit-transform: scale(1); transform: scale(1);}
-}
-
-@-webkit-keyframes to-sun {
-    from {-webkit-transform: scale(1);transform: scale(1);}
-    to {-webkit-transform: scale(0.5);transform: scale(0.5);}
-}
-
-@keyframes to-sun {
-    from {-webkit-transform: scale(1);transform: scale(1);}
-    to {-webkit-transform: scale(0.5);transform: scale(0.5);}
-}
-
-@-webkit-keyframes to-moon {
-    from {-webkit-transform: scale(0.5);transform: scale(0.5);}
-    to {-webkit-transform: scale(1);transform: scale(1);}
-}
-
-@keyframes to-moon {
-    from {-webkit-transform: scale(0.5);transform: scale(0.5);}
-    to {-webkit-transform: scale(1);transform: scale(1);}
-}
-
-@-webkit-keyframes expand-rays {
-    from {-webkit-transform: scale(0.1);transform: scale(0.1);}
-    to {-webkit-transform: scale(0.6);transform: scale(0.6);}
-}
-
-@keyframes expand-rays {
-    from {-webkit-transform: scale(0.1);transform: scale(0.1);}
-    to {-webkit-transform: scale(0.6);transform: scale(0.6);}
-}
-
-@-webkit-keyframes contract-rays {
-    from {-webkit-transform: scale(0.6);transform: scale(0.6);}
-    to {-webkit-transform: scale(0.1);transform: scale(0.1);}
-}
-
-@keyframes contract-rays {
-    from {-webkit-transform: scale(0.6);transform: scale(0.6);}
-    to {-webkit-transform: scale(0.1);transform: scale(0.1);}
+[dir="rtl"] .theme-icon-svg {
+    color: var(--primary);
 }
 
 

@@ -1,11 +1,30 @@
-{{- $.Scratch.Set "pages" .Site.RegularPages -}}
+{{- /*
+  Search Index - Optimized for Hugo v0.157.0
+  
+  Only indexes:
+  - Published pages (not drafts)
+  - Pages with publish date in the past
+  - Only post and page types
+  - Only current language
+*/ -}}
+
+{{- $pages := where .Site.RegularPages "Type" "in" (slice "post" "page") -}}
+{{- $pages = where $pages "Draft" false -}}
+{{- $pages = where $pages "PublishDate" "<=" now -}}
+{{- $pages = where $pages ".Params.noIndex" "ne" true -}}
 [
-{{- range $index, $page := $.Scratch.Get "pages" -}}
-{{- if gt $index 0 -}},{{- end -}}
-{
-  "title": {{ $page.Title | jsonify }},
-  "permalink": {{ $page.RelPermalink | jsonify }},
-  "summary": {{ $page.Summary | plainify | jsonify }}
-}
+{{- range $index, $page := $pages -}}
+  {{- if gt $index 0 -}},{{- end -}}
+  {
+    "title": {{ $page.Title | jsonify }},
+    "permalink": {{ $page.RelPermalink | jsonify }},
+    "summary": {{ $page.Summary | plainify | htmlUnescape | jsonify }},
+    "content": {{ $page.Plain | truncate 500 | jsonify }},
+    "date": {{ $page.Date.Format "2006-01-02" | jsonify }},
+    "tags": {{ $page.Params.tags | default (slice) | jsonify }},
+    "categories": {{ $page.Params.categories | default (slice) | jsonify }},
+    "section": {{ $page.Section | jsonify }},
+    "kind": {{ $page.Kind | jsonify }}
+  }
 {{- end -}}
 ]

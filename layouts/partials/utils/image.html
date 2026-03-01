@@ -1,0 +1,54 @@
+{{- /*
+  Simple Image Partial - Hugo v0.157.0+
+  Single optimized WebP image with Hugo Pipes
+
+  @context Dict with keys:
+    - src: string (required) - image path (must start with /)
+    - alt: string (required) - alt text
+    - class: string (optional) - CSS class
+    - loading: string (optional) - lazy/eager (default: lazy)
+    - width: int (optional) - resize width (default: 800)
+    - quality: int (optional) - image quality (default: 80)
+
+  @example:
+    {{ partial "utils/image.html" (dict "src" .Params.hero "alt" .Title "width" 800) }}
+*/ -}}
+
+{{- $src := .src -}}
+{{- $alt := .alt -}}
+{{- $class := .class | default "" -}}
+{{- $loading := .loading | default "lazy" -}}
+{{- $width := .width | default 800 -}}
+{{- $quality := .quality | default 80 -}}
+
+{{- if $src -}}
+  {{- $img := resources.Get $src -}}
+  {{- if $img -}}
+    {{- $resizeOp := printf "%dx webp q%d" $width $quality -}}
+    {{- $processed := try ($img.Resize $resizeOp) -}}
+    {{- if $processed.Err -}}
+      {{- /* Image processing failed, render fallback */ -}}
+      <img src="{{ $src }}"
+           alt="{{ $alt }}"
+           class="{{ $class }}"
+           loading="{{ $loading }}"
+           decoding="async">
+    {{- else -}}
+      {{- $result := $processed.Value -}}
+      <img src="{{ $result.RelPermalink }}"
+           alt="{{ $alt }}"
+           class="{{ $class }}"
+           loading="{{ $loading }}"
+           decoding="async"
+           width="{{ $result.Width }}"
+           height="{{ $result.Height }}">
+    {{- end -}}
+  {{- else -}}
+    {{- /* Image not found, render placeholder or nothing */ -}}
+    <img src="{{ $src }}"
+         alt="{{ $alt }}"
+         class="{{ $class }}"
+         loading="{{ $loading }}"
+         decoding="async">
+  {{- end -}}
+{{- end -}}

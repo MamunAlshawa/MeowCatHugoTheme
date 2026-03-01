@@ -1,13 +1,16 @@
+{{- /* Social Links - Hugo v0.157.0+ */ -}}
 <div class="social-icon-outer">
     <div class="social-icon-container">
-        {{ range $index, $component := .Site.Params.Social }}
-            {{ with $component }}
-                {{ $path := print "icons/social/" $index }}
-                {{ $socialName := title $index }}
-                <a href="{{ . }}" aria-label="Follow us on {{ $socialName }}" rel="noopener noreferrer" target="_blank">
-                    {{ partial $path $ }}
+        {{- range $name, $url := .Site.Params.Social -}}
+            {{- with $url -}}
+                {{- $iconPath := printf "icons/social/%s" $name -}}
+                <a href="{{ $url }}" 
+                   aria-label="Follow us on {{ title $name }}" 
+                   rel="noopener noreferrer" 
+                   target="_blank">
+                    {{- partial $iconPath $ -}}
                 </a>
-            {{ end }}
-        {{ end }}
+            {{- end -}}
+        {{- end -}}
     </div>
 </div>

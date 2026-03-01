@@ -1,13 +1,24 @@
 {{ $showBio := .Site.Params.showBio | default true }}
 {{ if $showBio }}
-    <div class="bio-container">
-        {{ $authorPage := .Site.GetPage .Site.Params.singleAuthorUrl }}
-        {{ with $authorPage }}
+    {{ $singleAuthorUrl := .Site.Params.singleAuthorUrl | default "/authors/mamun-alshawa" }}
+    {{ $authorPage := .Site.GetPage $singleAuthorUrl }}
+    {{ with $authorPage }}
+        <div class="bio-container">
             <a href="{{ .RelPermalink }}" class="bio-link" aria-label="Read more about {{ .Params.title }}">
-                {{ with .Params.avatar }}
+                {{ $avatarSrc := or .Site.Params.authorAvatar .Params.avatar }}
+                {{ with $avatarSrc }}
                     <div class="bio-avatar">
                         <div class="bio-avatar-inner">
-                            <img class="author-avatar" src="{{ . }}" loading="lazy" decoding="async" alt="{{ $.Page.Site.Params.title }} avatar" />
+                            {{ $img := resources.Get . }}
+                            {{ with $img }}
+                                {{ partial "utils/image.html" (dict
+                                    "src" .
+                                    "alt" (printf "%s avatar" $.Page.Site.Params.title)
+                                    "class" "author-avatar"
+                                    "width" 200
+                                    "quality" 80
+                                ) }}
+                            {{ end }}
                         </div>
                     </div>
                 {{ end }}
@@ -15,6 +26,6 @@
                     <p class="bio-text">{{ . }}</p>
                 {{ end }}
             </a>
-        {{ end }}
-    </div>
+        </div>
+    {{ end }}
 {{ end }}

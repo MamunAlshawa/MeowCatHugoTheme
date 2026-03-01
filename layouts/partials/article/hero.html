@@ -5,14 +5,20 @@
             <div class="article-hero-subtitle">
                 <div class="article-meta">
                     {{ partial "article/authors.html" . }}
-                    {{ .Page.Date.Format "January 2, 2006" }}
+                    {{ time.Format ":date_long" .Page.Date }}
                     • {{ .ReadingTime }} {{ i18n "min_read" }}
                 </div>
             </div>
         </header>
         {{ with .Page.Params.hero }}
         <div class="article-hero-image" id="ArticleImage__Hero">
-            <img src="{{ . }}" loading="lazy" decoding="async" alt="{{ $.Page.Title }}">
+            {{ partial "utils/responsive-image.html" (dict
+                "src" .
+                "alt" $.Page.Title
+                "class" "hero-image"
+                "widths" (slice 600 1200 1800)
+                "quality" 85
+            ) }}
         </div>
         {{ end }}
     </div>

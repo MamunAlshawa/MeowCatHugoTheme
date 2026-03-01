@@ -1,58 +1,71 @@
 
-let be = document.getElementsByTagName("BODY")[0];
-
-initColors();
-
-function initColors(){
+// Theme initialization - runs on page load
+(function() {
+    // Default to light mode if not set
     if (localStorage.getItem("isLight") === null) {
         localStorage.setItem("isLight", 'true');
     }
 
+    const bodyElement = document.getElementsByTagName("BODY")[0];
+    const htmlElement = document.documentElement;
+    let themeIconSun = document.querySelector(".theme-icon-sun");
+    let themeIconMoon = document.querySelector(".theme-icon-moon");
+
+    // Dark theme CSS variables
+    function applyDarkTheme() {
+        htmlElement.classList.add("dark-theme");
+        bodyElement.style.setProperty('--primary', "#fff");
+        bodyElement.style.setProperty('--secondary', "#fff");
+        bodyElement.style.setProperty('--grey', "#73737D");
+        bodyElement.style.setProperty('--background-color', "#111216");
+        bodyElement.style.setProperty('--accent', "#E9DAAC");
+        bodyElement.style.setProperty('--hover', "rgba(255, 255, 255, 0.07)");
+        bodyElement.style.setProperty('--gradient', "linear-gradient(180deg, #111216 0%, rgba(66, 81, 98, 0.36) 100%)");
+        bodyElement.style.setProperty('--articleText', "#fff");
+        bodyElement.style.setProperty('--track', "rgba(255, 255, 255, 0.3)");
+        bodyElement.style.setProperty('--progress', "#fff");
+        bodyElement.style.setProperty('--card', "#1D2128");
+        bodyElement.style.setProperty('--error', "#EE565B");
+        bodyElement.style.setProperty('--success', "#46B17B");
+        bodyElement.style.setProperty('--errorBackground', "rgba(238, 86, 91, 0.1)");
+        bodyElement.style.setProperty('--horizontalRule', "rgba(255, 255, 255, 0.15)");
+        bodyElement.style.setProperty('--inputBackground', "rgba(255, 255, 255, 0.07)");
+        bodyElement.style.setProperty('--tooltip', "#000");
+    }
+
+    // Light theme CSS variables (reset to CSS defaults)
+    function applyLightTheme() {
+        htmlElement.classList.remove("dark-theme");
+        bodyElement.style.setProperty('--primary', "");
+        bodyElement.style.setProperty('--secondary', "");
+        bodyElement.style.setProperty('--grey', "");
+        bodyElement.style.setProperty('--background-color', "");
+        bodyElement.style.setProperty('--accent', "");
+        bodyElement.style.setProperty('--hover', "");
+        bodyElement.style.setProperty('--gradient', "");
+        bodyElement.style.setProperty('--articleText', "");
+        bodyElement.style.setProperty('--track', "");
+        bodyElement.style.setProperty('--progress', "");
+        bodyElement.style.setProperty('--card', "");
+        bodyElement.style.setProperty('--error', "");
+        bodyElement.style.setProperty('--success', "");
+        bodyElement.style.setProperty('--errorBackground', "");
+        bodyElement.style.setProperty('--horizontalRule', "");
+        bodyElement.style.setProperty('--inputBackground', "");
+        bodyElement.style.setProperty('--tooltip', "lightgrey");
+    }
+
+    // Apply saved theme on page load
     if (localStorage.getItem("isLight") === 'false'){
-        makeDark();
+        // Dark mode: show moon, hide sun, apply dark theme
+        if (themeIconSun) themeIconSun.style.display = "none";
+        if (themeIconMoon) themeIconMoon.style.display = "block";
+        applyDarkTheme();
     }
     else{
-        makeLight();
+        // Light mode: show sun, hide moon, apply light theme
+        if (themeIconSun) themeIconSun.style.display = "block";
+        if (themeIconMoon) themeIconMoon.style.display = "none";
+        applyLightTheme();
     }
-}
-
-
-function makeDark(){
-    be.style.setProperty('--primary', "#fff");
-    be.style.setProperty('--secondary', "#fff");
-    be.style.setProperty('--grey', "#73737D");
-    be.style.setProperty('--background-color', "#111216");
-    be.style.setProperty('--accent', "#E9DAAC");
-    be.style.setProperty('--hover', "rgba(255, 255, 255, 0.07)");
-    be.style.setProperty('--gradient', "linear-gradient(180deg, #111216 0%, rgba(66, 81, 98, 0.36) 100%)");
-    be.style.setProperty('--articleText', "#fff");
-    be.style.setProperty('--track', "rgba(255, 255, 255, 0.3)");
-    be.style.setProperty('--progress', "#fff");
-    be.style.setProperty('--card', "#1D2128");
-    be.style.setProperty('--error', "#EE565B");
-    be.style.setProperty('--success', "#46B17B");
-    be.style.setProperty('--errorBackground', "rgba(238, 86, 91, 0.1)");
-    be.style.setProperty('--horizontalRule', "rgba(255, 255, 255, 0.15)");
-    be.style.setProperty('--inputBackground', "rgba(255, 255, 255, 0.07)");
-    be.style.setProperty('--tooltip', "#000");
-}
-
-function makeLight(){
-    be.style.setProperty('--primary', "");
-    be.style.setProperty('--secondary', "");
-    be.style.setProperty('--grey', "");
-    be.style.setProperty('--background-color', "");
-    be.style.setProperty('--accent', "");
-    be.style.setProperty('--hover', "");
-    be.style.setProperty('--gradient', "");
-    be.style.setProperty('--articleText', "");
-    be.style.setProperty('--track', "");
-    be.style.setProperty('--progress', "");
-    be.style.setProperty('--card', "");
-    be.style.setProperty('--error', "");
-    be.style.setProperty('--success', "");
-    be.style.setProperty('--errorBackground', "");
-    be.style.setProperty('--horizontalRule', "");
-    be.style.setProperty('--inputBackground', "");
-    be.style.setProperty('--tooltip', "lightgrey");
-}
+})();
