@@ -57,7 +57,7 @@
                           ) }}
                         {{ end }}
                       {{ end }}
-                      <span>{{ .Params.title }}</span>
+                      <span>{{ $.Site.Params.author.name }}</span>
                     {{ end }}
                     {{ time.Format ":date_long" $article.Date }} • {{ $article.ReadingTime }} {{ i18n "min_read" }}
                   </div>

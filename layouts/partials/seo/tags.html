@@ -29,7 +29,7 @@
 {{- end -}}
 {{- /* Article-specific OpenGraph tags */}}
 {{- if eq $seo.type "article" -}}
-  {{- with .page.Params.author -}}
+  {{- with .page.Site.Params.author.name -}}
     <meta property="article:author" content="{{ . }}">
   {{- end -}}
   {{- with .page.Params.tags -}}

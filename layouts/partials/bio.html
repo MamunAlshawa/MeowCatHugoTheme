@@ -4,7 +4,7 @@
     {{ $authorPage := .Site.GetPage $singleAuthorUrl }}
     {{ with $authorPage }}
         <div class="bio-container">
-            <a href="{{ .RelPermalink }}" class="bio-link" aria-label="Read more about {{ .Params.title }}">
+            <a href="{{ .RelPermalink }}" class="bio-link" aria-label="Read more about {{ $.Site.Params.author.name }}">
                 {{ $avatarSrc := or .Site.Params.authorAvatar .Params.avatar }}
                 {{ with $avatarSrc }}
                     <div class="bio-avatar">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 {{ end }}
-                {{ with .Params.bio }}
+                {{ with $.Site.Params.author.bio }}
                     <p class="bio-text">{{ . }}</p>
                 {{ end }}
             </a>
